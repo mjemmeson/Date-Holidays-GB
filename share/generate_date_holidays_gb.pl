@@ -97,6 +97,10 @@ sub holiday_data {
 __DATA__
 package Date::Holidays::GB;
 
+# VERSION
+
+# ABSTRACT: Date::Holidays class for GB
+
 use strict;
 use warnings;
 use utf8;
