@@ -1,11 +1,25 @@
-package Date::Holidays::GB;
+=pod
+
+=head1 NAME
+
+Date::Holidays::GB - UK public holiday dates, updated from gov.uk
+
+=head1 SYNOPSIS
+
+=head1 DESCRIPTION
+
+A L<Date::Holidays> style package updated with the British holiday dates now
+published at L<https://www.gov.uk/bank-holidays>.
+
+Note - there is no
+
 
 use strict;
 use warnings;
 use utf8;
 
-use base qw( Date::Holidays::Super Exporter );
-our @EXPORT_OK = qw( holidays is_holiday );
+use base qw( Exporter );
+our @EXPORT = qw( gb_holidays is_gb_holiday );
 
 use constant REGION_NAMES => {
     EAW => 'England & Wales',
@@ -19,25 +33,19 @@ our %holidays;
 while (<DATA>) {
     chomp;
     my ( $date, $region, $name ) = split /\t/;
-
-    my ( $y, $m, $d ) = split /-/, $date;
-    $holidays{$y}->{ $m . $d }->{$region} = $name;
+    $holidays{$date}->{$region} = $name;
 }
 
 # Define an 'all' if all three regions have a holiday on this day, taking
 # EAW name as the canonical name
-while ( my ( $year, $dates ) = each %holidays ) {
-    foreach my $holiday ( values %{$dates} ) {
-        $holiday->{all} = $holiday->{EAW}
-            if keys %{$holiday} == @{ +REGIONS };
-    }
+foreach my $holiday ( values %holidays ) {
+    $holiday->{all} = $holiday->{EAW}
+        if keys %{$holiday} == @{+REGIONS};
 }
 
-sub holidays {
-    my %args
-        = $_[0] =~ m/\D/
-        ? @_
-        : ( year => $_[0], regions => $_[1] );
+
+sub gb_holidays {
+    my %args = @_;
 
     unless ( exists $args{year} && defined $args{year} ) {
         $args{year} = ( localtime(time) )[5];
@@ -48,10 +56,11 @@ sub holidays {
         die "Year must be numeric and four digits, eg '2004'";
     }
 
-    return $holidays{ $args{year} } || {};
+    # TODO
 }
 
-sub is_holiday {
+sub is_gb_holiday {
+
     my %args
         = $_[0] =~ m/\D/
         ? @_
@@ -64,8 +73,7 @@ sub is_holiday {
     my @codes = @{ $args{regions} || REGIONS } or return;
 
     # return if no region has holiday
-    my $holiday = $holidays{$y}->{ sprintf( "%02d%02d", $m, $d ) }
-        or return;
+    my $holiday = $holidays{"$y-$m-$d"} or return;
 
     # return canonical name (EAW) if all regions have holiday
     return $holiday->{all} if $holiday->{all};

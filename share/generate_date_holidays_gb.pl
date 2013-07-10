@@ -17,16 +17,6 @@ my %CODES = (
     'northern-ireland'  => 'NIR',
 );
 
-my %REGIONS = (
-    EAW => 'England & Wales',
-    SCT => 'Scotland',
-    NIR => 'Northern Ireland',
-);
-
-my %FILES;
-
-my %holidays;
-
 write_file( get_dates( read_files() ) );
 
 exit;
@@ -34,7 +24,7 @@ exit;
 sub read_files {
     my %files;
     foreach my $region ( keys %CODES ) {
-        open( my $FH, "<:encoding(UTF-8)", "$region.ics" )
+        open( my $FH, "<:encoding(UTF-8)", "t/samples/$region.ics" )
             or die "Can't open '$region.ics' : $!";
         my $contents = do { local $/ = <$FH> };
         my $code = $CODES{$region};
@@ -50,8 +40,6 @@ sub get_dates {
 
     my $cal = iCal::Parser->new->parse_strings( values @_ );
 
-    #my $cal = iCal::Parser->new->parse( map {"$_.ics"} keys %CODES );
-
     my %icals = map { $_->{'X-WR-RELCALID'} => $_ } @{ $cal->{cals} };
 
     my %holidays;
@@ -59,20 +47,17 @@ sub get_dates {
     while ( my ( $y, $caly ) = each %{ $cal->{events} } ) {
         while ( my ( $m, $calm ) = each %{$caly} ) {
             while ( my ( $d, $cald ) = each %{$calm} ) {
+
+                my $date = sprintf( "%d-%02d-%02d", $y, $m, $d );
+
                 foreach my $e ( values( %{$cald} ) ) {
-                    $holidays{"$y-$m-$d"}
+
+                    $holidays{$date}
                         ->{ $icals{ $e->{idref} }->{'X-WR-CALNAME'} }
                         = $e->{SUMMARY};
                 }
             }
         }
-    }
-
-    # define an 'all' if all three regions have a holiday on this day
-    foreach my $holiday ( values %holidays ) {
-
-        # Take EAW as canonical name
-        $holiday->{all} = $holiday->{EAW} if keys %{$holiday} == 3;
     }
 
     return %holidays;
@@ -84,27 +69,29 @@ sub write_file {
     my $file = catfile( ( splitpath( realpath __FILE__ ) )[ 0, 1 ],
         updir, qw(lib Date Holidays GB.pm) );
 
-    open my $fh, '>:encoding(utf-8)', $file or die "$file: $!";
+    open my $FH, '>:encoding(utf-8)', $file or die "$file: $!";
 
-    my $contents = join('\n',<DATA>);
+    my $contents = do { local $/; <DATA> };
 
-    ( my $header = << "    __HEADER__") =~ s/^ +//gm;
-        package Acme::CPANAuthors::Locations;
+    print $FH $contents;
 
-        use strict;
-        use warnings;
-        use utf8;
+    print $FH holiday_data( %holidays );
 
-        our $VERSION = '$VERSION';
+    close $FH;
+}
 
-        use Acme::CPANAuthors::Register(
-    __HEADER__
-    print $fh $header;
-    for my $cpanid ( sort keys %authors ) {
-        printf $fh "    q(%s) => q(%s),\n", $cpanid, $authors{$cpanid};
+sub holiday_data {
+    my %holidays = @_;
+
+    my $data;
+    foreach my $date ( sort keys %holidays ) {
+        foreach my $region ( sort keys %{ $holidays{$date} } ) {
+            $data .= sprintf( "%s\t%s\t%s\n",
+                $date, $region, $holidays{$date}->{$region} );
+        }
     }
-    print $fh <DATA>;
-    close $fh;
+
+    return "__DATA__\n$data";
 }
 
 
@@ -117,13 +104,40 @@ use strict;
 use warnings;
 use utf8;
 
-use base qw( Exporter );
-our @EXPORT = qw( gb_holidays is_gb_holiday );
+use base qw( Date::Holidays::Super Exporter );
+our @EXPORT_OK = qw( holidays is_holiday );
+
+use constant REGION_NAMES => {
+    EAW => 'England & Wales',
+    SCT => 'Scotland',
+    NIR => 'Northern Ireland',
+};
+use constant REGIONS => [ keys %{ +REGION_NAMES } ];
 
 our %holidays;
 
-sub gb_holidays {
-    my %args = @_;
+while (<DATA>) {
+    chomp;
+    my ( $date, $region, $name ) = split /\t/;
+
+    my ( $y, $m, $d ) = split /-/, $date;
+    $holidays{$y}->{ $m . $d }->{$region} = $name;
+}
+
+# Define an 'all' if all three regions have a holiday on this day, taking
+# EAW name as the canonical name
+while ( my ( $year, $dates ) = each %holidays ) {
+    foreach my $holiday ( values %{$dates} ) {
+        $holiday->{all} = $holiday->{EAW}
+            if keys %{$holiday} == @{ +REGIONS };
+    }
+}
+
+sub holidays {
+    my %args
+        = $_[0] =~ m/\D/
+        ? @_
+        : ( year => $_[0], regions => $_[1] );
 
     unless ( exists $args{year} && defined $args{year} ) {
         $args{year} = ( localtime(time) )[5];
@@ -134,31 +148,42 @@ sub gb_holidays {
         die "Year must be numeric and four digits, eg '2004'";
     }
 
-    # TODO
+    my %return;
+
+    holidays = $holidays{ $args{year} } || {};
+
+    
+    return \%return;
 }
 
-sub is_gb_holiday {
-    my %args = @_;
+sub is_holiday {
+    my %args
+        = $_[0] =~ m/\D/
+        ? @_
+        : ( year => $_[0], month => $_[1], day => $_[2], regions => $_[3] );
 
     my ( $y, $m, $d ) = @args{qw/ year month day /};
     die "Must specify year, month and day" unless $y && $m && $d;
 
-    # return if empty regions list
-    my @codes = @{ $args{regions} || [qw/ EAW SCT NIR /] } or return;
+    # return if empty regions list (undef gets full list)
+    my @codes = @{ $args{regions} || REGIONS } or return;
 
     # return if no region has holiday
-    my $holiday = $holidays{"$y-$m-$d"} or return;
+    my $holiday = $holidays{$y}->{ sprintf( "%02d%02d", $m, $d ) }
+        or return;
 
     # return canonical name (EAW) if all regions have holiday
     return $holiday->{all} if $holiday->{all};
 
     # return comma separated string of holidays with region in
     # parentheses
-    my @result;
-    foreach my $code (@codes) {
-        push @result, $holiday->{$code} . " ($REGIONS{$code})";
-    }
-    return join( ', ', @result ) || undef;
+    my @result
+        = map { sprintf( "%s (%s)", $holiday->{$_}, REGION_NAMES->{$_} ) }
+        @codes;
+
+    return unless @result;
+
+    return join( ', ', @result );
 }
 
 1;
