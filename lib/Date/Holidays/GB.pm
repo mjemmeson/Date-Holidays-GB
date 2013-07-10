@@ -7,12 +7,16 @@ use utf8;
 use base qw( Date::Holidays::Super Exporter );
 our @EXPORT_OK = qw( holidays is_holiday );
 
+# See
+# http://en.wikipedia.org/wiki/ISO_3166-2
+# http://en.wikipedia.org/wiki/ISO_3166-2:GB
+
 use constant REGION_NAMES => {
     EAW => 'England & Wales',
     SCT => 'Scotland',
     NIR => 'Northern Ireland',
 };
-use constant REGIONS => [ keys %{ +REGION_NAMES } ];
+use constant REGIONS => [ sort keys %{ +REGION_NAMES } ];
 
 our %holidays;
 
@@ -48,7 +52,19 @@ sub holidays {
         die "Year must be numeric and four digits, eg '2004'";
     }
 
-    return $holidays{ $args{year} } || {};
+    # return if empty regions list (undef gets full list)
+    my @region_codes = @{ $args{regions} || REGIONS }
+        or return {};
+
+    my %return;
+
+    while ( my ( $date, $holiday ) = each %{ $holidays{ $args{year} } } ) {
+        my $string = _holiday( $holiday, \@region_codes )
+            or next;
+        $return{$date} = $string;
+    }
+
+    return \%return;
 }
 
 sub is_holiday {
@@ -61,24 +77,41 @@ sub is_holiday {
     die "Must specify year, month and day" unless $y && $m && $d;
 
     # return if empty regions list (undef gets full list)
-    my @codes = @{ $args{regions} || REGIONS } or return;
+    my @region_codes = @{ $args{regions} || REGIONS }
+        or return;
 
     # return if no region has holiday
     my $holiday = $holidays{$y}->{ sprintf( "%02d%02d", $m, $d ) }
         or return;
 
+    return _holiday( $holiday, \@region_codes );
+}
+
+sub _holiday {
+    my ( $holiday, $region_codes ) = @_;
+
     # return canonical name (EAW) if all regions have holiday
     return $holiday->{all} if $holiday->{all};
 
-    # return comma separated string of holidays with region in
+    my %region_codes = map { $_ => 1 } @{$region_codes};
+
+    # return comma separated string of holidays with region(s) in
     # parentheses
-    my @result
-        = map { sprintf( "%s (%s)", $holiday->{$_}, REGION_NAMES->{$_} ) }
-        @codes;
+    my %names;
+    foreach my $region ( sort keys %region_codes ) {
+        next unless $holiday->{$region};
 
-    return unless @result;
+        push @{ $names{ $holiday->{$region} } }, REGION_NAMES->{$region};
+    }
 
-    return join( ', ', @result );
+    return unless %names;
+
+    my @strings;
+    foreach my $name ( sort keys %names ) {
+        push @strings, "$name (" . join( ', ', @{ $names{$name} } ) . ")";
+    }
+
+    return join( ', ', @strings );
 }
 
 1;

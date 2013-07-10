@@ -33,11 +33,36 @@ is_deeply holidays(2000), {}, "No holiday data for year 2000";
 
 ok my $holidays = holidays(2013), "got holidays for 2013";
 
-use Data::Dumper::Concise;
-print Dumper($holidays);
+is_deeply $holidays,
+{   "0101" => "New Year\x{2019}s Day",
+    "0102" => "2nd January (Scotland)",
+    "0318" => "St Patrick\x{2019}s Day (Northern Ireland)",
+    "0329" => "Good Friday",
+    "0401" => "Easter Monday (England & Wales, Northern Ireland)",
+    "0506" => "Early May bank holiday",
+    "0527" => "Spring bank holiday",
+    "0712" =>
+        "Battle of the Boyne (Orangemen\x{2019}s Day) (Northern Ireland)",
+    "0805" => "Summer bank holiday (Scotland)",
+    "0826" => "Summer bank holiday (England & Wales, Northern Ireland)",
+    "1202" => "St Andrew\x{2019}s Day (Scotland)",
+    "1225" => "Christmas Day",
+    "1226" => "Boxing Day"
+},
+    "2013 holidays ok";
 
-is_deeply $holidays, {}, "2013 holidays ok";
-
+is_deeply holidays( year => 2013, regions => ['EAW'] ),
+    {
+    "0101" => "New Year\x{2019}s Day",
+    "0329" => "Good Friday",
+    "0401" => "Easter Monday (England & Wales)",
+    "0506" => "Early May bank holiday",
+    "0527" => "Spring bank holiday",
+    "0826" => "Summer bank holiday (England & Wales)",
+    "1225" => "Christmas Day",
+    "1226" => "Boxing Day"
+    },
+    "got holidays for England & Wales, 2013";
 
 done_testing();
 
