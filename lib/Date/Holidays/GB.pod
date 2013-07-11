@@ -25,8 +25,12 @@ Date::Holidays::GB - UK public holiday dates, updated from gov.uk
 
 =head1 DESCRIPTION
 
-A L<Date::Holidays> style package updated with the British holiday dates now
-published at L<https://www.gov.uk/bank-holidays>.
+A L<Date::Holidays> style package updated with the British bank holiday dates now
+published at L<https://www.gov.uk/bank-holidays>. Holidays may apply to all
+regions, or some combination - see the C<regions> parameter for more details.
+
+Module is named with correct ISO-3166-1 code for the United Kingdom: "GB"
+(Great Britain)
 
 =head1 EXPORTS
 
@@ -79,7 +83,7 @@ region(s).
 
 =head1 ISO-3166-2 REGION CODES
 
-Valid codes for regions are:
+Valid codes for the regions that make up ISO-3166-1 "GB" are:
 
 =over
 
