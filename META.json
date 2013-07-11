@@ -32,6 +32,13 @@
          }
       },
       "develop" : {
+         "recommends" : {
+            "Cwd" : "> 0",
+            "File::Spec::Functions" : "> 0",
+            "LWP::Simple" : "> 0",
+            "Time::Local" : "> 0",
+            "iCal::Parser" : "> 0"
+         },
          "requires" : {
             "Pod::Coverage::TrustPod" : "0",
             "Test::CPAN::Meta" : "0",
@@ -66,7 +73,7 @@
    "provides" : {
       "Date::Holidays::GB" : {
          "file" : "lib/Date/Holidays/GB.pm",
-         "version" : "0.001"
+         "version" : "0.002"
       }
    },
    "release_status" : "stable",
@@ -81,6 +88,6 @@
          "web" : "https://github.com/mjemmeson/date-holidays-gb"
       }
    },
-   "version" : "0.001"
+   "version" : "0.002"
 }
 
