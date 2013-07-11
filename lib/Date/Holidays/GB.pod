@@ -79,7 +79,7 @@ region(s).
 
 =head1 ISO-3166-2 REGION CODES
 
-Valid codes for GB are:
+Valid codes for regions are:
 
 =over
 
