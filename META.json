@@ -33,11 +33,11 @@
       },
       "develop" : {
          "recommends" : {
-            "Cwd" : "> 0",
-            "File::Spec::Functions" : "> 0",
-            "LWP::Simple" : "> 0",
-            "Time::Local" : "> 0",
-            "iCal::Parser" : "> 0"
+            "Cwd" : "0",
+            "File::Spec::Functions" : "0",
+            "LWP::Simple" : "0",
+            "Time::Local" : "0",
+            "iCal::Parser" : "0"
          },
          "requires" : {
             "Pod::Coverage::TrustPod" : "0",
