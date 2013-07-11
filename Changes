@@ -2,6 +2,8 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+ - Generate script takes data from gov.uk site not sample files
+
 0.001     2013-07-11 09:15:16 Europe/London
 
  - Initial release - dates for 2013, 2014, 2015
