@@ -1,12 +1,18 @@
 #!/usr/bin/perl
 
+# script to update Date::Holidays::GB with the latest bank holiday dates from
+# http://www.gov.uk/bank-holidays
+
 use strict;
 use warnings;
 
 use Cwd qw( realpath );
 use File::Spec::Functions qw( catfile splitpath updir );
 use iCal::Parser;
+use LWP::Simple qw/ get /;
 use Time::Local();
+
+my $URL = 'http://www.gov.uk/bank-holidays/';
 
 my %CODES = (
     'england-and-wales' => 'EAW',
@@ -14,17 +20,31 @@ my %CODES = (
     'northern-ireland'  => 'NIR',
 );
 
-write_file( get_dates( read_files() ) );
+write_file( get_dates( download_cals() ) );
 
 exit;
 
+sub download_cals {
+    my %cals;
+    while ( my ( $region, $code ) = each %CODES ) {
+
+        my $contents = get $URL . "$region.ics"
+            or die "Can't download $URL$region.ics";
+
+        $contents =~ s/(BEGIN:VCALENDAR)/$1\nX-WR-CALNAME:$code/;
+
+        $cals{$region} = $contents;
+    }
+
+    return %cals;
+}
+
 sub read_files {
-    my %files;
-    foreach my $region ( keys %CODES ) {
+    my %files;    # file contents
+    while ( my ( $region, $code ) = each %CODES ) {
         open( my $FH, "<:encoding(UTF-8)", "t/samples/$region.ics" )
             or die "Can't open '$region.ics' : $!";
         my $contents = do { local $/ = <$FH> };
-        my $code = $CODES{$region};
         $contents =~ s/(BEGIN:VCALENDAR)/$1\nX-WR-CALNAME:$code/;
         $files{$region} = $contents;
     }
