@@ -44,7 +44,7 @@ sub read_files {
     while ( my ( $region, $code ) = each %CODES ) {
         open( my $FH, "<:encoding(UTF-8)", "t/samples/$region.ics" )
             or die "Can't open '$region.ics' : $!";
-        my $contents = do { local $/ = <$FH> };
+        my $contents = do { local $/; <$FH> };
         $contents =~ s/(BEGIN:VCALENDAR)/$1\nX-WR-CALNAME:$code/;
         $files{$region} = $contents;
     }
