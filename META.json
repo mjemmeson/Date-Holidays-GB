@@ -1,10 +1,10 @@
 {
-   "abstract" : "Date::Holidays class for GB",
+   "abstract" : "Date::Holidays compatible package for the UK, with public/bank holiday dates, updated from gov.uk",
    "author" : [
       "Michael Jemmeson <mjemmeson@cpan.org>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.300034, CPAN::Meta::Converter version 2.120921",
+   "generated_by" : "Dist::Zilla version 4.300035, CPAN::Meta::Converter version 2.131560",
    "license" : [
       "perl_5"
    ],
@@ -34,8 +34,10 @@
       "develop" : {
          "recommends" : {
             "Cwd" : "0",
+            "DateTime" : "0",
             "File::Spec::Functions" : "0",
             "LWP::Simple" : "0",
+            "Template" : "0",
             "Time::Local" : "0",
             "iCal::Parser" : "0"
          },
@@ -73,7 +75,19 @@
    "provides" : {
       "Date::Holidays::GB" : {
          "file" : "lib/Date/Holidays/GB.pm",
-         "version" : "0.002"
+         "version" : "0.003"
+      },
+      "Date::Holidays::GB::EAW" : {
+         "file" : "lib/Date/Holidays/GB/EAW.pm",
+         "version" : "0.003"
+      },
+      "Date::Holidays::GB::NIR" : {
+         "file" : "lib/Date/Holidays/GB/NIR.pm",
+         "version" : "0.003"
+      },
+      "Date::Holidays::GB::SCT" : {
+         "file" : "lib/Date/Holidays/GB/SCT.pm",
+         "version" : "0.003"
       }
    },
    "release_status" : "stable",
@@ -88,6 +102,7 @@
          "web" : "https://github.com/mjemmeson/date-holidays-gb"
       }
    },
-   "version" : "0.002"
+   "version" : "0.003",
+   "x_authority" : "cpan:DAGOLDEN"
 }
 
