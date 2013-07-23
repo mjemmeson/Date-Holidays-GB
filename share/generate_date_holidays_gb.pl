@@ -100,6 +100,10 @@ sub holiday_data {
 __DATA__
 package Date::Holidays::GB;
 
+# VERSION
+
+# ABSTRACT: Date::Holidays compatible package for UK public holidays
+
 use strict;
 use warnings;
 use utf8;
@@ -152,7 +156,6 @@ sub holidays {
 
     holidays = $holidays{ $args{year} } || {};
 
-    
     return \%return;
 }
 
