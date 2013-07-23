@@ -2,6 +2,8 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+ - Region modules, date_generated method, POD and script improvements
+
 0.002     2013-07-11 12:34:02 Europe/London
 
  - Generate script takes data from gov.uk site not sample files
