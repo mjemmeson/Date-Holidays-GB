@@ -119,7 +119,7 @@ package Date::Holidays::GB;
 
 # VERSION
 
-# ABSTRACT: Date::Holidays class for GB
+# ABSTRACT: Date::Holidays class for the UK, with public/bank holiday dates, updated from gov.uk
 
 use strict;
 use warnings;

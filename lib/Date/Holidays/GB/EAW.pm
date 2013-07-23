@@ -4,6 +4,19 @@ package Date::Holidays::GB::EAW;
 
 # ABSTRACT: Date::Holidays class for GB-EAW (England & Wales)
 
+=head1 SYNOPSIS
+
+    use Date::Holidays::GB::EAW qw/ holidays is_holiday /;
+    
+    # All holidays for England & Wales
+    my $holidays = holidays( year => 2013 );
+    
+    if (is_holiday( year => 2013, month => 12, day => 25, ) {
+            print "No work today!";
+    }
+
+=cut
+
 use strict;
 use warnings;
 

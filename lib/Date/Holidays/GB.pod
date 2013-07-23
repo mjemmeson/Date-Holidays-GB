@@ -2,10 +2,6 @@
 
 =pod
 
-=head1 NAME
-
-Date::Holidays::GB - UK public holiday dates, updated from gov.uk
-
 =head1 SYNOPSIS
 
     use Date::Holidays::GB qw/ holidays is_holiday /;
@@ -31,6 +27,10 @@ regions, or some combination - see the C<regions> parameter for more details.
 
 Module is named with correct ISO-3166-1 code for the United Kingdom: "GB"
 (Great Britain)
+
+To just work with holiday days for a single region, use one of the subclasses:
+L<Date::Holidays::GB::EAW>, L<Date::Holidays::GB::NIR>, or
+L<Date::Holidays::GB::SCT>.
 
 =head1 EXPORTS
 
