@@ -1,15 +1,18 @@
 #!/usr/bin/perl
 
+# script to update Date::Holidays::GB with the latest bank holiday dates from
+# http://www.gov.uk/bank-holidays
+
 use strict;
 use warnings;
 
 use Cwd qw( realpath );
 use File::Spec::Functions qw( catfile splitpath updir );
 use iCal::Parser;
+use LWP::Simple qw/ get /;
 use Time::Local();
 
-# http://en.wikipedia.org/wiki/ISO_3166-2
-# http://en.wikipedia.org/wiki/ISO_3166-2:GB
+my $URL = 'http://www.gov.uk/bank-holidays/';
 
 my %CODES = (
     'england-and-wales' => 'EAW',
@@ -17,17 +20,31 @@ my %CODES = (
     'northern-ireland'  => 'NIR',
 );
 
-write_file( get_dates( read_files() ) );
+write_file( get_dates( download_cals() ) );
 
 exit;
 
+sub download_cals {
+    my %cals;
+    while ( my ( $region, $code ) = each %CODES ) {
+
+        my $contents = get $URL . "$region.ics"
+            or die "Can't download $URL$region.ics";
+
+        $contents =~ s/(BEGIN:VCALENDAR)/$1\nX-WR-CALNAME:$code/;
+
+        $cals{$region} = $contents;
+    }
+
+    return %cals;
+}
+
 sub read_files {
-    my %files;
-    foreach my $region ( keys %CODES ) {
+    my %files;    # file contents
+    while ( my ( $region, $code ) = each %CODES ) {
         open( my $FH, "<:encoding(UTF-8)", "t/samples/$region.ics" )
             or die "Can't open '$region.ics' : $!";
-        my $contents = do { local $/ = <$FH> };
-        my $code = $CODES{$region};
+        my $contents = do { local $/; <$FH> };
         $contents =~ s/(BEGIN:VCALENDAR)/$1\nX-WR-CALNAME:$code/;
         $files{$region} = $contents;
     }
@@ -102,7 +119,7 @@ package Date::Holidays::GB;
 
 # VERSION
 
-# ABSTRACT: Date::Holidays compatible package for UK public holidays
+# ABSTRACT: Date::Holidays compatible package for the UK, with public/bank holiday dates, updated from gov.uk
 
 use strict;
 use warnings;
@@ -111,12 +128,16 @@ use utf8;
 use base qw( Date::Holidays::Super Exporter );
 our @EXPORT_OK = qw( holidays is_holiday );
 
+# See
+# http://en.wikipedia.org/wiki/ISO_3166-2
+# http://en.wikipedia.org/wiki/ISO_3166-2:GB
+
 use constant REGION_NAMES => {
     EAW => 'England & Wales',
     SCT => 'Scotland',
     NIR => 'Northern Ireland',
 };
-use constant REGIONS => [ keys %{ +REGION_NAMES } ];
+use constant REGIONS => [ sort keys %{ +REGION_NAMES } ];
 
 our %holidays;
 
@@ -152,9 +173,17 @@ sub holidays {
         die "Year must be numeric and four digits, eg '2004'";
     }
 
+    # return if empty regions list (undef gets full list)
+    my @region_codes = @{ $args{regions} || REGIONS }
+        or return {};
+
     my %return;
 
-    holidays = $holidays{ $args{year} } || {};
+    while ( my ( $date, $holiday ) = each %{ $holidays{ $args{year} } } ) {
+        my $string = _holiday( $holiday, \@region_codes )
+            or next;
+        $return{$date} = $string;
+    }
 
     return \%return;
 }
@@ -169,24 +198,41 @@ sub is_holiday {
     die "Must specify year, month and day" unless $y && $m && $d;
 
     # return if empty regions list (undef gets full list)
-    my @codes = @{ $args{regions} || REGIONS } or return;
+    my @region_codes = @{ $args{regions} || REGIONS }
+        or return;
 
     # return if no region has holiday
     my $holiday = $holidays{$y}->{ sprintf( "%02d%02d", $m, $d ) }
         or return;
 
+    return _holiday( $holiday, \@region_codes );
+}
+
+sub _holiday {
+    my ( $holiday, $region_codes ) = @_;
+
     # return canonical name (EAW) if all regions have holiday
     return $holiday->{all} if $holiday->{all};
 
-    # return comma separated string of holidays with region in
+    my %region_codes = map { $_ => 1 } @{$region_codes};
+
+    # return comma separated string of holidays with region(s) in
     # parentheses
-    my @result
-        = map { sprintf( "%s (%s)", $holiday->{$_}, REGION_NAMES->{$_} ) }
-        @codes;
+    my %names;
+    foreach my $region ( sort keys %region_codes ) {
+        next unless $holiday->{$region};
 
-    return unless @result;
+        push @{ $names{ $holiday->{$region} } }, REGION_NAMES->{$region};
+    }
 
-    return join( ', ', @result );
+    return unless %names;
+
+    my @strings;
+    foreach my $name ( sort keys %names ) {
+        push @strings, "$name (" . join( ', ', @{ $names{$name} } ) . ")";
+    }
+
+    return join( ', ', @strings );
 }
 
 1;
