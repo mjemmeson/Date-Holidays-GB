@@ -81,6 +81,12 @@ Returns the holiday details (as per C<holidays>) but for a single date.
 Returns false if the specified date is not a holiday in the appropriate
 region(s).
 
+=head2 date_generated
+
+    print Date::Holidays::GB->date_generated;
+
+Prints the date that the data was downloaded, in YYYY-MM-DD format.
+
 =head1 ISO-3166-2 REGION CODES
 
 Valid codes for the regions that make up ISO-3166-1 "GB" are:
@@ -100,6 +106,13 @@ SCT - Scotland
 NIR - Northern Ireland
 
 =back
+
+=head1 GENERATING THE DATA
+
+The source for this package is generated via a script, included with the
+distribution (L<share/generate_date_holidays_gb.pl>). This downloads the
+latest iCal files from L<http://www.gov.uk/>, and could be used to
+update/alter the package if necessary.
 
 =head1 SEE ALSO
 

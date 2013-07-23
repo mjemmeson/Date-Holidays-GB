@@ -7,9 +7,11 @@ use strict;
 use warnings;
 
 use Cwd qw( realpath );
+use DateTime;
 use File::Spec::Functions qw( catfile splitpath updir );
 use iCal::Parser;
 use LWP::Simple qw/ get /;
+use Template;
 use Time::Local();
 
 my $URL = 'http://www.gov.uk/bank-holidays/';
@@ -90,7 +92,11 @@ sub write_file {
 
     my $contents = do { local $/; <DATA> };
 
-    print $FH $contents;
+    my $tt2 = Template->new;
+    my $output;
+    $tt2->process( \$contents, { date_generated => DateTime->now->ymd }, \$output );
+
+    print $FH $output;
 
     print $FH holiday_data( %holidays );
 
@@ -234,6 +240,8 @@ sub _holiday {
 
     return join( ', ', @strings );
 }
+
+sub date_generated { '[% date_generated %]' }
 
 1;
 

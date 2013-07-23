@@ -2,7 +2,7 @@ package Date::Holidays::GB;
 
 # VERSION
 
-# ABSTRACT: Date::Holidays class for GB
+# ABSTRACT: Date::Holidays compatible package for the UK, with public/bank holiday dates, updated from gov.uk
 
 use strict;
 use warnings;
@@ -117,6 +117,8 @@ sub _holiday {
 
     return join( ', ', @strings );
 }
+
+sub date_generated { '2013-07-23' }
 
 1;
 
