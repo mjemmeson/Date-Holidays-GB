@@ -9,7 +9,7 @@ use warnings;
 use utf8;
 
 use base qw( Date::Holidays::Super Exporter );
-our @EXPORT_OK = qw( holidays is_holiday );
+our @EXPORT_OK = qw( holidays gb_holidays is_holiday is_gb_holiday );
 
 # See
 # http://en.wikipedia.org/wiki/ISO_3166-2
@@ -41,6 +41,8 @@ while ( my ( $year, $dates ) = each %holidays ) {
     }
 }
 
+sub gb_holidays { return holidays(@_) }
+
 sub holidays {
     my %args
         = $_[0] =~ m/\D/
@@ -70,6 +72,8 @@ sub holidays {
 
     return \%return;
 }
+
+sub is_gb_holiday { return is_holiday(@_) }
 
 sub is_holiday {
     my %args
@@ -118,7 +122,7 @@ sub _holiday {
     return join( ', ', @strings );
 }
 
-sub date_generated { '2013-07-23' }
+sub date_generated { '2013-11-21' }
 
 1;
 
