@@ -34,7 +34,8 @@ L<Date::Holidays::GB::SCT>.
 
 =head1 EXPORTS
 
-Exports C<holidays> and C<is_holiday> on demand.
+Exports C<holidays> and C<is_holiday> on demand. Also can export the aliases
+C<gb_holidays> and C<is_gb_holiday>.
 
 =head1 METHODS
 
@@ -66,7 +67,7 @@ taking place on that date, with the region name(s) in parenthesis.
 Holidays that occur in all regions are returned with a single canonical name,
 taken from the name in England & Wales.
 
-Date keys are in the format MMDD, as per the behaviour ofL<Date::Holidays>.
+Date keys are in the format MMDD, as per the behaviour of L<Date::Holidays>.
 
 =head2 is_holiday
 

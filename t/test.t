@@ -2,13 +2,14 @@
 
 use utf8;
 use Test::Most;
+use Test::Fatal;
 
 my $builder = Test::More->builder;
 binmode $builder->output,         ":utf8";
 binmode $builder->failure_output, ":utf8";
 binmode $builder->todo_output,    ":utf8";
 
-use Date::Holidays::GB qw/ is_holiday holidays /;
+use Date::Holidays::GB qw/ is_holiday holidays holidays_ymd /;
 
 # TODO load holiday data from sample files, so tests won't need updating
 
@@ -29,7 +30,11 @@ is $st_andrews_day, "St Andrew\x{2019}s Day (Scotland)", "St Andrew's Day name o
 
 note "holidays";
 
-is_deeply holidays(2000), {}, "No holiday data for year 2000";
+is_deeply holidays(2000), {}, "No data for year 2000 - outside range";
+is_deeply holidays(2020), {}, "No data for year 2020 - outside range";
+
+#like exception { holidays(2000) }, qr/No holiday data for year 2000/, "dies ok outside date range";
+#like exception { holidays(2020) }, qr/No holiday data for year 2020/, "dies ok outside date range";
 
 is_deeply holidays(2013),
     {
@@ -49,6 +54,25 @@ is_deeply holidays(2013),
     "1226" => "Boxing Day"
     },
     "2013 holidays ok";
+
+is_deeply holidays_ymd(2013),
+    {
+    "2013-01-01" => "New Year\x{2019}s Day",
+    "2013-01-02" => "2nd January (Scotland)",
+    "2013-03-18" => "St Patrick\x{2019}s Day (Northern Ireland)",
+    "2013-03-29" => "Good Friday",
+    "2013-04-01" => "Easter Monday (England & Wales, Northern Ireland)",
+    "2013-05-06" => "Early May bank holiday",
+    "2013-05-27" => "Spring bank holiday",
+    "2013-07-12" =>
+        "Battle of the Boyne (Orangemen\x{2019}s Day) (Northern Ireland)",
+    "2013-08-05" => "Summer bank holiday (Scotland)",
+    "2013-08-26" => "Summer bank holiday (England & Wales, Northern Ireland)",
+    "2013-12-02" => "St Andrew\x{2019}s Day (Scotland)",
+    "2013-12-25" => "Christmas Day",
+    "2013-12-26" => "Boxing Day"
+    },
+    "2013 holidays_ymd ok";
 
 is_deeply holidays( year => 2013, regions => ['EAW'] ),
     {
