@@ -5,13 +5,13 @@
 =head1 SYNOPSIS
 
     use Date::Holidays::GB qw/ holidays is_holiday /;
-    
+
     # All UK holidays
     my $holidays = holidays( year => 2013 );
-    
+
     # Holidays in England & Wales and Scotland
     my $holidays = holidays( year => 2013, regions => [ 'EAW', 'SCT' ] );
-    
+
     if (is_holiday(
             year => 2013, month => 12, day => 25,
             regions => [ 'EAW', 'SCT' ] )
@@ -58,6 +58,7 @@ module!
     my $holidays = Date::Holidays::GB->holidays( @args );
 
 or
+
     # ( year => ..., month => ..., day => ..., [ regions => \@. .. ] )
     my $holidays = Date::Holidays::GB->holidays( %args );
 
@@ -75,6 +76,7 @@ Date keys are in the format MMDD, as per the behaviour of L<Date::Holidays>.
     my $holiday = Date::Holidays::GB->is_holiday( @args );
 
 or
+
     # ( year => ..., month => ..., day => ..., [ regions => \@. .. ] )
     my $holiday = Date::Holidays::GB->is_holiday( %args );
 
