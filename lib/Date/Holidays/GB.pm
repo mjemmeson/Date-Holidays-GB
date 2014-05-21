@@ -1,6 +1,6 @@
 package Date::Holidays::GB;
 
-our $VERSION = '0.004'; # VERSION
+# VERSION
 
 # ABSTRACT: Determine British holidays - UK public and bank holiday dates
 
@@ -169,38 +169,11 @@ sub _holiday {
     return join( ', ', @strings );
 }
 
-sub date_generated { '2013-12-23' }
+sub date_generated { '2014-05-21' }
 
 1;
 
 __DATA__
-2013-01-01	EAW	New Year’s Day
-2013-01-01	NIR	New Year’s Day
-2013-01-01	SCT	New Year’s Day
-2013-01-02	SCT	2nd January
-2013-03-18	NIR	St Patrick’s Day
-2013-03-29	EAW	Good Friday
-2013-03-29	NIR	Good Friday
-2013-03-29	SCT	Good Friday
-2013-04-01	EAW	Easter Monday
-2013-04-01	NIR	Easter Monday
-2013-05-06	EAW	Early May bank holiday
-2013-05-06	NIR	Early May bank holiday
-2013-05-06	SCT	Early May bank holiday
-2013-05-27	EAW	Spring bank holiday
-2013-05-27	NIR	Spring bank holiday
-2013-05-27	SCT	Spring bank holiday
-2013-07-12	NIR	Battle of the Boyne (Orangemen’s Day)
-2013-08-05	SCT	Summer bank holiday
-2013-08-26	EAW	Summer bank holiday
-2013-08-26	NIR	Summer bank holiday
-2013-12-02	SCT	St Andrew’s Day
-2013-12-25	EAW	Christmas Day
-2013-12-25	NIR	Christmas Day
-2013-12-25	SCT	Christmas Day
-2013-12-26	EAW	Boxing Day
-2013-12-26	NIR	Boxing Day
-2013-12-26	SCT	Boxing Day
 2014-01-01	EAW	New Year’s Day
 2014-01-01	NIR	New Year’s Day
 2014-01-01	SCT	New Year’s Day
@@ -255,3 +228,30 @@ __DATA__
 2015-12-28	EAW	Boxing Day
 2015-12-28	NIR	Boxing Day
 2015-12-28	SCT	Boxing Day
+2016-01-01	EAW	New Year’s Day
+2016-01-01	NIR	New Year’s Day
+2016-01-01	SCT	New Year’s Day
+2016-01-04	SCT	2nd January
+2016-03-17	NIR	St Patrick’s Day
+2016-03-25	EAW	Good Friday
+2016-03-25	NIR	Good Friday
+2016-03-25	SCT	Good Friday
+2016-03-28	EAW	Easter Monday
+2016-03-28	NIR	Easter Monday
+2016-05-02	EAW	Early May bank holiday
+2016-05-02	NIR	Early May bank holiday
+2016-05-02	SCT	Early May bank holiday
+2016-05-30	EAW	Spring bank holiday
+2016-05-30	NIR	Spring bank holiday
+2016-05-30	SCT	Spring bank holiday
+2016-07-12	NIR	Battle of the Boyne (Orangemen’s Day)
+2016-08-01	SCT	Summer bank holiday
+2016-08-29	EAW	Summer bank holiday
+2016-08-29	NIR	Summer bank holiday
+2016-11-30	SCT	St Andrew’s Day
+2016-12-26	EAW	Boxing Day
+2016-12-26	NIR	Boxing Day
+2016-12-26	SCT	Boxing Day
+2016-12-27	EAW	Christmas Day
+2016-12-27	NIR	Christmas Day
+2016-12-27	SCT	Christmas Day

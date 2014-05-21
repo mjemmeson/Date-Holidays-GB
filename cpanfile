@@ -28,24 +28,22 @@ on 'configure' => sub {
 };
 
 on 'develop' => sub {
+  requires "Cwd" => "0";
+  requires "DateTime" => "0";
   requires "Dist::Milla" => "0";
   requires "File::Spec" => "0";
+  requires "File::Spec::Functions" => "0";
   requires "File::Temp" => "0";
+  requires "iCal::Parser" => "0";
   requires "IO::Handle" => "0";
   requires "IPC::Open3" => "0";
+  requires "LWP::Simple" => "0";
   requires "Pod::Coverage::TrustPod" => "0";
+  requires "Template" => "0";
   requires "Test::CPAN::Meta" => "0";
   requires "Test::More" => "0";
   requires "Test::Pod" => "1.41";
   requires "Test::Pod::Coverage" => "1.08";
+  requires "Time::Local" => "0";
 };
 
-on 'develop' => sub {
-  recommends "Cwd" => "0";
-  recommends "DateTime" => "0";
-  recommends "File::Spec::Functions" => "0";
-  recommends "LWP::Simple" => "0";
-  recommends "Template" => "0";
-  recommends "Time::Local" => "0";
-  recommends "iCal::Parser" => "0";
-};
