@@ -1,10 +1,10 @@
 {
-   "abstract" : "Date::Holidays compatible package for the UK, with public/bank holiday dates, updated from gov.uk",
+   "abstract" : "Determine British holidays - UK public and bank holiday dates",
    "author" : [
       "Michael Jemmeson <mjemmeson@cpan.org>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.300035, CPAN::Meta::Converter version 2.131560",
+   "generated_by" : "Dist::Milla version v1.0.5, Dist::Zilla version 5.015, CPAN::Meta::Converter version 2.141170",
    "license" : [
       "perl_5"
    ],
@@ -17,18 +17,18 @@
       "directory" : [
          "t",
          "xt",
-         "examples",
-         "corpus"
-      ],
-      "package" : [
-         "DB"
+         "inc",
+         "share",
+         "eg",
+         "examples"
       ]
    },
    "prereqs" : {
       "configure" : {
          "requires" : {
-            "ExtUtils::MakeMaker" : "6.30",
-            "File::ShareDir::Install" : "0.03"
+            "ExtUtils::MakeMaker" : "6.17",
+            "File::ShareDir::Install" : "0.03",
+            "Module::Build::Tiny" : "0.036"
          }
       },
       "develop" : {
@@ -42,8 +42,14 @@
             "iCal::Parser" : "0"
          },
          "requires" : {
+            "Dist::Milla" : "0",
+            "File::Spec" : "0",
+            "File::Temp" : "0",
+            "IO::Handle" : "0",
+            "IPC::Open3" : "0",
             "Pod::Coverage::TrustPod" : "0",
             "Test::CPAN::Meta" : "0",
+            "Test::More" : "0",
             "Test::Pod" : "1.41",
             "Test::Pod::Coverage" : "1.08"
          }
@@ -61,48 +67,54 @@
          }
       },
       "test" : {
+         "recommends" : {
+            "CPAN::Meta" : "0",
+            "CPAN::Meta::Requirements" : "2.120900"
+         },
          "requires" : {
             "ExtUtils::MakeMaker" : "0",
-            "File::Find" : "0",
             "File::Spec::Functions" : "0",
-            "File::Temp" : "0",
             "List::Util" : "0",
+            "Test::Fatal" : "0",
             "Test::More" : "0",
-            "Test::Most" : "0"
+            "Test::Most" : "0",
+            "version" : "0"
          }
       }
    },
    "provides" : {
       "Date::Holidays::GB" : {
          "file" : "lib/Date/Holidays/GB.pm",
-         "version" : "0.003"
+         "version" : "0.004"
       },
       "Date::Holidays::GB::EAW" : {
          "file" : "lib/Date/Holidays/GB/EAW.pm",
-         "version" : "0.003"
+         "version" : "0.004"
       },
       "Date::Holidays::GB::NIR" : {
          "file" : "lib/Date/Holidays/GB/NIR.pm",
-         "version" : "0.003"
+         "version" : "0.004"
       },
       "Date::Holidays::GB::SCT" : {
          "file" : "lib/Date/Holidays/GB/SCT.pm",
-         "version" : "0.003"
+         "version" : "0.004"
       }
    },
    "release_status" : "stable",
    "resources" : {
       "bugtracker" : {
-         "web" : "https://github.com/mjemmeson/date-holidays-gb/issues"
+         "web" : "https://github.com/mjemmeson/Date-Holidays-GB/issues"
       },
-      "homepage" : "https://metacpan.org/release/Date-Holidays-GB",
+      "homepage" : "https://github.com/mjemmeson/Date-Holidays-GB",
       "repository" : {
          "type" : "git",
-         "url" : "git://github.com/mjemmeson/date-holidays-gb.git",
-         "web" : "https://github.com/mjemmeson/date-holidays-gb"
+         "url" : "https://github.com/mjemmeson/Date-Holidays-GB.git",
+         "web" : "https://github.com/mjemmeson/Date-Holidays-GB"
       }
    },
-   "version" : "0.003",
-   "x_authority" : "cpan:DAGOLDEN"
+   "version" : "0.004",
+   "x_contributors" : [
+      "Michael Jemmeson <michael.jemmeson@cpan.org>"
+   ]
 }
 

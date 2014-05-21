@@ -2,6 +2,9 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+ [Maintenance]
+ - Switched to Dist::Milla
+
 0.003     2013-07-23 21:53:52 Europe/London
 
  - Region modules, date_generated method, POD and script improvements
