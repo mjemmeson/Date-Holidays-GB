@@ -1,6 +1,6 @@
 package Date::Holidays::GB;
 
-our $VERSION = '0.003';
+# VERSION
 
 # ABSTRACT: Determine British holidays - UK public and bank holiday dates
 
@@ -29,21 +29,26 @@ use constant REGION_NAMES => {
 use constant REGIONS => [ sort keys %{ +REGION_NAMES } ];
 
 our %holidays;
+set_holidays(\*DATA);
 
-while (<DATA>) {
-    chomp;
-    my ( $date, $region, $name ) = split /\t/;
+sub set_holidays {
+    my $fh = shift;
+    while (<$fh>) {
+        chomp;
+        my ( $date, $region, $name ) = split /\t/;
+        next unless $date && $region && $name;
 
-    my ( $y, $m, $d ) = split /-/, $date;
-    $holidays{$y}->{$date}->{$region} = $name;
-}
+        my ( $y, $m, $d ) = split /-/, $date;
+        $holidays{$y}->{$date}->{$region} = $name;
+    }
 
-# Define an 'all' if all three regions have a holiday on this day, taking
-# EAW name as the canonical name
-while ( my ( $year, $dates ) = each %holidays ) {
-    foreach my $holiday ( values %{$dates} ) {
-        $holiday->{all} = $holiday->{EAW}
-            if keys %{$holiday} == @{ +REGIONS };
+    # Define an 'all' if all three regions have a holiday on this day, taking
+    # EAW name as the canonical name
+    while ( my ( $year, $dates ) = each %holidays ) {
+        foreach my $holiday ( values %{$dates} ) {
+            $holiday->{all} = $holiday->{EAW}
+                if keys %{$holiday} == @{ +REGIONS };
+        }
     }
 }
 
@@ -169,7 +174,7 @@ sub _holiday {
     return join( ', ', @strings );
 }
 
-sub date_generated { '2014-05-21' }
+sub date_generated { '2014-05-22' }
 
 1;
 

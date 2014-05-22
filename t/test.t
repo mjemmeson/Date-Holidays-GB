@@ -11,7 +11,10 @@ binmode $builder->todo_output,    ":utf8";
 
 use Date::Holidays::GB qw/ is_holiday holidays holidays_ymd /;
 
-# TODO load holiday data from sample files, so tests won't need updating
+open( my $fh, '<:encoding(utf-8)', 't/samples/2013-holidays' )
+    or die "Can't open 2013-holidays: $!";
+
+Date::Holidays::GB::set_holidays( $fh );
 
 note "is_holiday";
 

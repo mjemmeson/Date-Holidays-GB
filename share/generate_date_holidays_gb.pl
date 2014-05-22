@@ -35,7 +35,7 @@ sub download_cals {
 
         $contents =~ s/(BEGIN:VCALENDAR)/$1\nX-WR-CALNAME:$code/;
 
-        $cals{$region} = $contents;
+        $cals{$code} = $contents;
     }
 
     return %cals;
@@ -48,7 +48,7 @@ sub read_files {
             or die "Can't open '$region.ics' : $!";
         my $contents = do { local $/; <$FH> };
         $contents =~ s/(BEGIN:VCALENDAR)/$1\nX-WR-CALNAME:$code/;
-        $files{$region} = $contents;
+        $files{$code} = $contents;
     }
     return %files;
 }
@@ -106,9 +106,9 @@ sub holiday_data {
 
     my $data;
     foreach my $date ( sort keys %holidays ) {
-        foreach my $region ( sort keys %{ $holidays{$date} } ) {
+        foreach my $code ( sort keys %{ $holidays{$date} } ) {
             $data .= sprintf( "%s\t%s\t%s\n",
-                $date, $region, $holidays{$date}->{$region} );
+                $date, $code, $holidays{$date}->{$code} );
         }
     }
 
@@ -150,21 +150,26 @@ use constant REGION_NAMES => {
 use constant REGIONS => [ sort keys %{ +REGION_NAMES } ];
 
 our %holidays;
+set_holidays(\*DATA);
 
-while (<DATA>) {
-    chomp;
-    my ( $date, $region, $name ) = split /\t/;
+sub set_holidays {
+    my $fh = shift;
+    while (<$fh>) {
+        chomp;
+        my ( $date, $region, $name ) = split /\t/;
+        next unless $date && $region && $name;
 
-    my ( $y, $m, $d ) = split /-/, $date;
-    $holidays{$y}->{$date}->{$region} = $name;
-}
+        my ( $y, $m, $d ) = split /-/, $date;
+        $holidays{$y}->{$date}->{$region} = $name;
+    }
 
-# Define an 'all' if all three regions have a holiday on this day, taking
-# EAW name as the canonical name
-while ( my ( $year, $dates ) = each %holidays ) {
-    foreach my $holiday ( values %{$dates} ) {
-        $holiday->{all} = $holiday->{EAW}
-            if keys %{$holiday} == @{ +REGIONS };
+    # Define an 'all' if all three regions have a holiday on this day, taking
+    # EAW name as the canonical name
+    while ( my ( $year, $dates ) = each %holidays ) {
+        foreach my $holiday ( values %{$dates} ) {
+            $holiday->{all} = $holiday->{EAW}
+                if keys %{$holiday} == @{ +REGIONS };
+        }
     }
 }
 
