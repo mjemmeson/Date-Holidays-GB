@@ -9,6 +9,11 @@ Revision history for {{$dist->name}}
  - Switched to Dist::Milla
  - tests using static sample data
 
+0.004
+
+ [Development]
+ - Fake release
+
 0.003     2013-07-23 21:53:52 Europe/London
 
  - Region modules, date_generated method, POD and script improvements
