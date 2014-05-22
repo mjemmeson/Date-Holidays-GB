@@ -2,8 +2,12 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+ [Update]
+ - 2013 dates removed, 2016 dates added
+
  [Maintenance]
  - Switched to Dist::Milla
+ - tests using static sample data
 
 0.003     2013-07-23 21:53:52 Europe/London
 
