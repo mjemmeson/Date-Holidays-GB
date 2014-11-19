@@ -9,79 +9,50 @@ use warnings;
 use Cwd qw( realpath );
 use DateTime;
 use File::Spec::Functions qw( catfile splitpath updir );
-use iCal::Parser;
+use JSON;
 use LWP::Simple qw/ get /;
 use Template;
 use Time::Local();
 
-my $URL = 'http://www.gov.uk/bank-holidays/';
+my $URL = 'http://www.gov.uk/bank-holidays.json';
 
-my %CODES = (
+my %CODE = (
     'england-and-wales' => 'EAW',
     'scotland'          => 'SCT',
     'northern-ireland'  => 'NIR',
 );
 
-write_file( get_dates( download_cals() ) );
+write_file( get_dates( download_json() ) );
 
 exit;
 
-sub download_cals {
-    my %cals;
-    while ( my ( $region, $code ) = each %CODES ) {
+sub download_json {
 
-        my $contents = get $URL . "$region.ics"
-            or die "Can't download $URL$region.ics";
+    my $contents = get $URL or die "Can't download $URL";
 
-        $contents =~ s/(BEGIN:VCALENDAR)/$1\nX-WR-CALNAME:$code/;
-
-        $cals{$code} = $contents;
-    }
-
-    return %cals;
-}
-
-sub read_files {
-    my %files;    # file contents
-    while ( my ( $region, $code ) = each %CODES ) {
-        open( my $FH, "<:encoding(UTF-8)", "t/samples/$region.ics" )
-            or die "Can't open '$region.ics' : $!";
-        my $contents = do { local $/; <$FH> };
-        $contents =~ s/(BEGIN:VCALENDAR)/$1\nX-WR-CALNAME:$code/;
-        $files{$code} = $contents;
-    }
-    return %files;
+    return decode_json($contents);
 }
 
 sub get_dates {
 
-    my $cal = iCal::Parser->new->parse_strings( values @_ );
+    my $data = shift;
 
-    my %icals = map { $_->{'X-WR-RELCALID'} => $_ } @{ $cal->{cals} };
+    my %holiday;
 
-    my %holidays;
+    foreach my $region ( keys %{$data} ) {
 
-    while ( my ( $y, $caly ) = each %{ $cal->{events} } ) {
-        while ( my ( $m, $calm ) = each %{$caly} ) {
-            while ( my ( $d, $cald ) = each %{$calm} ) {
+        foreach my $event ( @{ $data->{$region}->{events} } ) {
 
-                my $date = sprintf( "%d-%02d-%02d", $y, $m, $d );
+            $holiday{ $event->{date} }->{ $CODE{$region} } = $event->{title};
 
-                foreach my $e ( values( %{$cald} ) ) {
-
-                    $holidays{$date}
-                        ->{ $icals{ $e->{idref} }->{'X-WR-CALNAME'} }
-                        = $e->{SUMMARY};
-                }
-            }
         }
     }
 
-    return %holidays;
+    return %holiday;
 }
 
 sub write_file {
-    my %holidays = @_;
+    my %holiday = @_;
 
     my $file = catfile( ( splitpath( realpath __FILE__ ) )[ 0, 1 ],
         updir, qw(lib Date Holidays GB.pm) );
@@ -96,19 +67,19 @@ sub write_file {
 
     print $FH $output;
 
-    print $FH holiday_data( %holidays );
+    print $FH holiday_data( %holiday );
 
     close $FH;
 }
 
 sub holiday_data {
-    my %holidays = @_;
+    my %holiday = @_;
 
     my $data;
-    foreach my $date ( sort keys %holidays ) {
-        foreach my $code ( sort keys %{ $holidays{$date} } ) {
+    foreach my $date ( sort keys %holiday ) {
+        foreach my $code ( sort keys %{ $holiday{$date} } ) {
             $data .= sprintf( "%s\t%s\t%s\n",
-                $date, $code, $holidays{$date}->{$code} );
+                $date, $code, $holiday{$date}->{$code} );
         }
     }
 

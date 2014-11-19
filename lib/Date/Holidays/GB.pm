@@ -1,6 +1,6 @@
 package Date::Holidays::GB;
 
-our $VERSION = '0.005';
+# VERSION
 
 # ABSTRACT: Determine British holidays - UK public and bank holiday dates
 
@@ -174,11 +174,68 @@ sub _holiday {
     return join( ', ', @strings );
 }
 
-sub date_generated { '2014-05-22' }
+sub date_generated { '2014-11-19' }
 
 1;
 
 __DATA__
+2012-01-02	EAW	New Year’s Day
+2012-01-02	NIR	New Year’s Day
+2012-01-02	SCT	2nd January
+2012-01-03	SCT	New Year’s Day
+2012-03-19	NIR	St Patrick’s Day
+2012-04-06	EAW	Good Friday
+2012-04-06	NIR	Good Friday
+2012-04-06	SCT	Good Friday
+2012-04-09	EAW	Easter Monday
+2012-04-09	NIR	Easter Monday
+2012-05-07	EAW	Early May bank holiday
+2012-05-07	NIR	Early May bank holiday
+2012-05-07	SCT	Early May bank holiday
+2012-06-04	EAW	Spring bank holiday
+2012-06-04	NIR	Spring bank holiday
+2012-06-04	SCT	Spring bank holiday
+2012-06-05	EAW	Queen’s Diamond Jubilee
+2012-06-05	NIR	Queen’s Diamond Jubilee
+2012-06-05	SCT	Queen’s Diamond Jubilee
+2012-07-12	NIR	Battle of the Boyne (Orangemen’s Day)
+2012-08-06	SCT	Summer bank holiday
+2012-08-27	EAW	Summer bank holiday
+2012-08-27	NIR	Summer bank holiday
+2012-11-30	SCT	St Andrew’s Day
+2012-12-25	EAW	Christmas Day
+2012-12-25	NIR	Christmas Day
+2012-12-25	SCT	Christmas Day
+2012-12-26	EAW	Boxing Day
+2012-12-26	NIR	Boxing Day
+2012-12-26	SCT	Boxing Day
+2013-01-01	EAW	New Year’s Day
+2013-01-01	NIR	New Year’s Day
+2013-01-01	SCT	New Year’s Day
+2013-01-02	SCT	2nd January
+2013-03-18	NIR	St Patrick’s Day
+2013-03-29	EAW	Good Friday
+2013-03-29	NIR	Good Friday
+2013-03-29	SCT	Good Friday
+2013-04-01	EAW	Easter Monday
+2013-04-01	NIR	Easter Monday
+2013-05-06	EAW	Early May bank holiday
+2013-05-06	NIR	Early May bank holiday
+2013-05-06	SCT	Early May bank holiday
+2013-05-27	EAW	Spring bank holiday
+2013-05-27	NIR	Spring bank holiday
+2013-05-27	SCT	Spring bank holiday
+2013-07-12	NIR	Battle of the Boyne (Orangemen’s Day)
+2013-08-05	SCT	Summer bank holiday
+2013-08-26	EAW	Summer bank holiday
+2013-08-26	NIR	Summer bank holiday
+2013-12-02	SCT	St Andrew’s Day
+2013-12-25	EAW	Christmas Day
+2013-12-25	NIR	Christmas Day
+2013-12-25	SCT	Christmas Day
+2013-12-26	EAW	Boxing Day
+2013-12-26	NIR	Boxing Day
+2013-12-26	SCT	Boxing Day
 2014-01-01	EAW	New Year’s Day
 2014-01-01	NIR	New Year’s Day
 2014-01-01	SCT	New Year’s Day
