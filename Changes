@@ -2,6 +2,13 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+ [Update]
+ - 2012 and 2013 dates reinstated (side effect of switching to JSON source)
+
+ [Maintenance]
+ - generate from gov.uk JSON not ical
+ - simplify generation script, remove templating 
+
 0.005  2014-05-22 13:48:14 BST
 
  [Update]
