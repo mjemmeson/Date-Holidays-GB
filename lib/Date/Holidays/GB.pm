@@ -174,7 +174,7 @@ sub _holiday {
     return join( ', ', @strings );
 }
 
-sub date_generated { '2014-11-19' }
+sub date_generated { '2015-01-07' }
 
 1;
 
