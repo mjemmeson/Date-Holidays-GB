@@ -1,6 +1,6 @@
 package Date::Holidays::GB::NIR;
 
-our $VERSION = '0.005';
+our $VERSION = '0.006';
 
 =head1 NAME
 

@@ -1,6 +1,6 @@
 package Date::Holidays::GB;
 
-our $VERSION = '0.005';
+our $VERSION = '0.006';
 
 # ABSTRACT: Determine British holidays - UK public and bank holiday dates
 
