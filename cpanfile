@@ -37,7 +37,6 @@ on 'develop' => sub {
   requires "JSON" => 0;
   requires "LWP::Simple" => "0";
   requires "Pod::Coverage::TrustPod" => "0";
-  requires "Template" => "0";
   requires "Test::CPAN::Meta" => "0";
   requires "Test::More" => "0";
   requires "Test::Pod" => "1.41";
