@@ -4,7 +4,7 @@
 
 =head1 NAME
 
-Date::Holidays::GB - Determine British holidays - UK public and bank holiday dates
+Date::Holidays::GB - Determine British holidays - Current UK public and bank holiday dates up to 2016
 
 =head1 SYNOPSIS
 
@@ -129,6 +129,18 @@ update/alter the package if necessary.
 
 L<Date::Holidays>
 
+=item *
+
+L<Date::Holidays::UK> - not currently updated
+
+=item *
+
+L<Date::Holidays::UK::EnglandAndWales> - not currently updated
+
+=item *
+
+L<Date::Holidays::EnglandWales> - not currently updated
+
 =back
 
 =head1 SUPPORT
@@ -154,7 +166,7 @@ Michael Jemmeson <mjemmeson@cpan.org>
 
 =head1 COPYRIGHT
 
-This software is copyright (c) 2014 by Michael Jemmeson.
+This software is copyright (c) 2013-2015 by Michael Jemmeson.
 
 =head1 LICENSE
 

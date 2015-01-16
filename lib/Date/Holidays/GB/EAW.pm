@@ -1,23 +1,6 @@
 package Date::Holidays::GB::EAW;
 
-our $VERSION = '0.006';
-
-=head1 NAME
-
-Date::Holidays::GB::EAW - Date::Holidays class for GB-EAW (England & Wales)
-
-=head1 SYNOPSIS
-
-    use Date::Holidays::GB::EAW qw/ holidays is_holiday /;
-
-    # All holidays for England & Wales
-    my $holidays = holidays( year => 2013 );
-
-    if (is_holiday( year => 2013, month => 12, day => 25, ) {
-            print "No work today!";
-        }
-
-=cut
+# VERSION
 
 use strict;
 use warnings;
@@ -43,4 +26,23 @@ sub is_holiday {
 }
 
 1;
+
+__END__
+
+=head1 NAME
+
+Date::Holidays::GB::EAW - Date::Holidays class for GB-EAW (England & Wales)
+
+=head1 SYNOPSIS
+
+    use Date::Holidays::GB::EAW qw/ holidays is_holiday /;
+
+    # All holidays for England & Wales
+    my $holidays = holidays( year => 2013 );
+
+    if ( is_holiday( year => 2013, month => 12, day => 25 ) ) {
+        print "No work today!";
+    }
+
+=cut
 
