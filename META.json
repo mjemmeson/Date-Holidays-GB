@@ -1,16 +1,16 @@
 {
    "abstract" : "Determine British holidays - UK public and bank holiday dates",
    "author" : [
-      "unknown"
+      "Michael Jemmeson <mjemmeson@cpan.org>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 5.025, Dist::Milla version v1.0.5, CPAN::Meta::Converter version 2.143240",
+   "generated_by" : "Dist::Zilla version 5.032, Dist::Milla version v1.0.15, CPAN::Meta::Converter version 2.150001",
    "license" : [
       "perl_5"
    ],
    "meta-spec" : {
       "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
-      "version" : "2"
+      "version" : 2
    },
    "name" : "Date-Holidays-GB",
    "no_index" : {
@@ -35,7 +35,7 @@
          "requires" : {
             "Cwd" : "0",
             "DateTime" : "0",
-            "Dist::Milla" : "0",
+            "Dist::Milla" : "v1.0.15",
             "File::Spec" : "0",
             "File::Spec::Functions" : "0",
             "File::Temp" : "0",
