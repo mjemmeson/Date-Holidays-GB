@@ -174,7 +174,7 @@ sub _holiday {
     return join( ', ', @strings );
 }
 
-sub date_generated { '2015-01-07' }
+sub date_generated { '2016-01-29' }
 
 1;
 
@@ -317,3 +317,30 @@ __DATA__
 2016-12-27	EAW	Christmas Day
 2016-12-27	NIR	Christmas Day
 2016-12-27	SCT	Christmas Day
+2017-01-02	EAW	New Year’s Day
+2017-01-02	NIR	New Year’s Day
+2017-01-02	SCT	2nd January
+2017-01-03	SCT	New Year’s Day
+2017-03-17	NIR	St Patrick’s Day
+2017-04-14	EAW	Good Friday
+2017-04-14	NIR	Good Friday
+2017-04-14	SCT	Good Friday
+2017-04-17	EAW	Easter Monday
+2017-04-17	NIR	Easter Monday
+2017-05-01	EAW	Early May bank holiday
+2017-05-01	NIR	Early May bank holiday
+2017-05-01	SCT	Early May bank holiday
+2017-05-29	EAW	Spring bank holiday
+2017-05-29	NIR	Spring bank holiday
+2017-05-29	SCT	Spring bank holiday
+2017-07-12	NIR	Battle of the Boyne (Orangemen’s Day)
+2017-08-07	SCT	Summer bank holiday
+2017-08-28	EAW	Summer bank holiday
+2017-08-28	NIR	Summer bank holiday
+2017-11-30	SCT	St Andrew’s Day
+2017-12-25	EAW	Christmas Day
+2017-12-25	NIR	Christmas Day
+2017-12-25	SCT	Christmas Day
+2017-12-26	EAW	Boxing Day
+2017-12-26	NIR	Boxing Day
+2017-12-26	SCT	Boxing Day
