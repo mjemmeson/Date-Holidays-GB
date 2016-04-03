@@ -7,6 +7,12 @@ use warnings;
 
 use Date::Holidays::GB;
 
+use base qw( Exporter );
+our @EXPORT_OK = qw(
+  holidays
+  is_holiday
+);
+
 sub holidays {
     my %args
         = $_[0] =~ m/\D/
