@@ -133,9 +133,13 @@ public review and contribution under the terms of the license.
 
 Michael Jemmeson <mjemmeson@cpan.org>
 
+# CONTRIBUTORS
+
+- Peter Newman
+
 # COPYRIGHT
 
-This software is copyright (c) 2013-2015 by Michael Jemmeson.
+This software is copyright (c) 2013-2016 by Michael Jemmeson.
 
 # LICENSE
 

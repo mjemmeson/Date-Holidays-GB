@@ -109,7 +109,8 @@
    },
    "version" : "0.007",
    "x_contributors" : [
-      "Michael Jemmeson <michael.jemmeson@cpan.org>"
+      "Michael Jemmeson <michael.jemmeson@cpan.org>",
+      "Peter Newman <peternewman@users.noreply.github.com>"
    ]
 }
 
