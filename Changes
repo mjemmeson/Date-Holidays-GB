@@ -2,6 +2,8 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.008  2016-04-11 10:28:05 BST
+
  [Bugfix]
  - export methods from sub-region classes (EAW, NIR, SCT) - [Peter Newman]
 
