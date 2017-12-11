@@ -1,6 +1,6 @@
 # NAME
 
-Date::Holidays::GB - Determine British holidays - Current UK public and bank holiday dates up to 2018
+Date::Holidays::GB - Determine British holidays - Current UK public and bank holiday dates up to 2019
 
 # SYNOPSIS
 
