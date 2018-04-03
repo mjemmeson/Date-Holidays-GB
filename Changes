@@ -2,6 +2,21 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.010  2017-12-11 11:12:50 GMT
+
+ [Update]
+ - 2019 dates added
+
+0.009  2017-08-09 15:52:55 CEST
+
+ [Update]
+ - 2018 dates added
+
+0.008  2016-04-11 10:28:05 BST
+
+ [Bugfix]
+ - export methods from sub-region classes (EAW, NIR, SCT) - [Peter Newman]
+
 0.007  2016-01-29 13:44:18 GMT
 
  [Update]
