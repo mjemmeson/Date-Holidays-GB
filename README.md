@@ -101,8 +101,8 @@ Valid codes for the regions that make up ISO-3166-1 "GB" are:
 # GENERATING THE DATA
 
 The source for this package is generated via a script, included with the
-distribution (["generate\_date\_holidays\_gb.pl" in share](https://metacpan.org/pod/share#generate_date_holidays_gb.pl)). This downloads the
-latest iCal files from [http://www.gov.uk/](http://www.gov.uk/), and could be used to
+distribution ("generate\_date\_holidays\_gb.pl" in share). This downloads the
+latest JSON files from [http://www.gov.uk/](http://www.gov.uk/), and could be used to
 update/alter the package if necessary.
 
 # SEE ALSO
