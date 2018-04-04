@@ -2,6 +2,8 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.011  2018-04-04 15:44:41 BST
+
  [Maintenance]
  - correct data format referenced in documentation and broken link removed - [Peter Newman]
 
