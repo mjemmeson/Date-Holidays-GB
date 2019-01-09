@@ -1,6 +1,6 @@
 package Date::Holidays::GB;
 
-our $VERSION = '0.011';
+our $VERSION = '0.012';
 
 # ABSTRACT: Determine British holidays - Current UK public and bank holiday dates up to 2019
 
