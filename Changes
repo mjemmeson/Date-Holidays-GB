@@ -2,6 +2,15 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.012  2019-01-09 17:59:34 GMT
+
+ - 2020 dates added
+
+0.011  2018-04-04 15:44:41 BST
+
+ [Maintenance]
+ - correct data format referenced in documentation and broken link removed - [Peter Newman]
+
 0.010  2017-12-11 11:12:50 GMT
 
  [Update]

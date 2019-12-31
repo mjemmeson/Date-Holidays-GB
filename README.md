@@ -101,7 +101,7 @@ Valid codes for the regions that make up ISO-3166-1 "GB" are:
 # GENERATING THE DATA
 
 The source for this package is generated via a script, included with the
-distribution ("generate\_date\_holidays\_gb.pl" in share). This downloads the
+distribution (`share/generate_date_holidays_gb.pl`). This downloads the
 latest JSON files from [http://www.gov.uk/](http://www.gov.uk/), and could be used to
 update/alter the package if necessary.
 
@@ -109,7 +109,7 @@ update/alter the package if necessary.
 
 - [Date::Holidays](https://metacpan.org/pod/Date::Holidays)
 - [Date::Holidays::UK](https://metacpan.org/pod/Date::Holidays::UK) - not currently updated
-- [Date::Holidays::UK::EnglandAndWales](https://metacpan.org/pod/Date::Holidays::UK::EnglandAndWales) - not currently updated
+- [Date::Holidays::UK::EnglandAndWales](https://metacpan.org/pod/Date::Holidays::UK::EnglandAndWales) - only England and Wales
 - [Date::Holidays::EnglandWales](https://metacpan.org/pod/Date::Holidays::EnglandWales) - not currently updated
 
 # SUPPORT
@@ -139,7 +139,7 @@ Michael Jemmeson <mjemmeson@cpan.org>
 
 # COPYRIGHT
 
-This software is copyright (c) 2013-2017 by Michael Jemmeson.
+This software is copyright (c) 2013-2018 by Michael Jemmeson.
 
 # LICENSE
 
