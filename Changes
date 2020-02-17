@@ -2,6 +2,8 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.014  2020-02-17 10:40:36 GMT
+
  [Update]
  - documented next_holiday() method
  - added more logical 'date' interface to functions
