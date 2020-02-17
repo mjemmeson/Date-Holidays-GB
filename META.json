@@ -74,6 +74,7 @@
             "Test::Fatal" : "0",
             "Test::More" : "0",
             "Test::Most" : "0",
+            "Test::Time" : "0",
             "version" : "0"
          }
       }
@@ -81,19 +82,19 @@
    "provides" : {
       "Date::Holidays::GB" : {
          "file" : "lib/Date/Holidays/GB.pm",
-         "version" : "0.013"
+         "version" : "0.014"
       },
       "Date::Holidays::GB::EAW" : {
          "file" : "lib/Date/Holidays/GB/EAW.pm",
-         "version" : "0.013"
+         "version" : "0.014"
       },
       "Date::Holidays::GB::NIR" : {
          "file" : "lib/Date/Holidays/GB/NIR.pm",
-         "version" : "0.013"
+         "version" : "0.014"
       },
       "Date::Holidays::GB::SCT" : {
          "file" : "lib/Date/Holidays/GB/SCT.pm",
-         "version" : "0.013"
+         "version" : "0.014"
       }
    },
    "release_status" : "stable",
@@ -108,7 +109,7 @@
          "web" : "https://github.com/mjemmeson/Date-Holidays-GB"
       }
    },
-   "version" : "0.013",
+   "version" : "0.014",
    "x_contributors" : [
       "Michael Jemmeson <michael.jemmeson@cpan.org>",
       "Peter Newman <peternewman@users.noreply.github.com>"
