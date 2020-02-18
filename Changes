@@ -5,6 +5,9 @@ Revision history for {{$dist->name}}
  [Maintenance]
  - updating cpanfile for missing dependencies and for test failures
 
+ [Bugfix]
+ - calculate next_holiday() based only on current Europe/London timezone
+
 0.015  2020-02-17 14:08:56 GMT
 
  [Maintenance]
