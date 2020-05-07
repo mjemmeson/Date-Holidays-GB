@@ -18,6 +18,7 @@ our @EXPORT_OK = qw(
   is_holiday
   is_gb_holiday
   next_holiday
+  next_gb_holiday
 );
 
 # See
@@ -135,6 +136,8 @@ sub is_holiday {
 
     return _holiday( $holiday, \@region_codes );
 }
+
+sub next_gb_holiday { return next_holiday(@_) }
 
 sub next_holiday {
     my @regions = @_;
