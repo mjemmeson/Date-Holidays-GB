@@ -196,7 +196,7 @@ sub _holiday {
     return join( ', ', @strings );
 }
 
-sub date_generated { '2020-02-11' }
+sub date_generated { '2020-06-04' }
 
 1;
 

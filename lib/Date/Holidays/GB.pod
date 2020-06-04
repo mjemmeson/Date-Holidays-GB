@@ -37,8 +37,9 @@ Date::Holidays::GB - Determine British holidays - Current UK public and bank hol
 
 A L<Date::Holidays> style package updated with the British bank holiday dates now
 published at L<https://www.gov.uk/bank-holidays>. Holidays may apply to all
-regions, or some combination - see the C<regions> parameter for more details. N.B.
-dates of future holidays may very occasionally be updated after they've been
+regions, or some combination - see the C<regions> parameter for more details.
+
+N.B. - Dates of future holidays may occasionally be updated after they've been
 published.
 
 Module is named with correct ISO-3166-1 code for the United Kingdom: "GB"
