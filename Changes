@@ -2,6 +2,12 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+ [Update]
+ - added next_gb_holiday() alias
+
+ [Bugfix]
+ - fix broken share/date_holidays_gb.pl script
+
 0.016  2020-02-18 11:07:38 GMT
 
  [Maintenance]
