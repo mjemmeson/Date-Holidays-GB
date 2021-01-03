@@ -25,6 +25,7 @@ on 'test' => sub {
 on 'configure' => sub {
     requires "ExtUtils::MakeMaker"     => "6.17";
     requires "File::ShareDir::Install" => "0.03";
+    requires "Module::Build::Tiny"     => "0.034";
 };
 
 on 'develop' => sub {
