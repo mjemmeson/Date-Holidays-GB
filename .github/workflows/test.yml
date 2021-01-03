@@ -72,7 +72,7 @@ jobs:
         uses: shogo82148/actions-setup-perl@v1
       - name: Build and make dist
         run: |
-          cpanm --notest --installdeps --with-configure .
-          dzil build
+          cpanm --notest --installdeps --with-configure --with-develop .
+          milla build
       - name: Prepare
         run: dh-make-perl make --build .
