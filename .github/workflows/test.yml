@@ -68,6 +68,8 @@ jobs:
         run: sudo apt-file update
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Set up Perl
+        uses: shogo82148/actions-setup-perl@v1
       - name: Build and make dist
         run: |
           cpanm --notest --installdeps .
