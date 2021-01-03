@@ -58,3 +58,11 @@ jobs:
           ./Build build
       - name: Test
         run: prove -lv t
+
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Prepare
+        run: dh-make-perl make --build .
