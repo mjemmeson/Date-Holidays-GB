@@ -73,8 +73,6 @@ jobs:
       - name: Build and make dist
         run: |
           cpanm --notest --installdeps --with-configure .
-          perl ./Build.PL
-          ./Build
-          ./Build dist
+          dzil build
       - name: Prepare
         run: dh-make-perl make --build .
