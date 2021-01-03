@@ -68,5 +68,10 @@ jobs:
         run: sudo apt-file update
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Build and make dist
+        run: |
+          perl ./Build.PL
+          ./Build
+          ./Build dist
       - name: Prepare
         run: dh-make-perl make --build .
