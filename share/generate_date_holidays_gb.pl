@@ -9,9 +9,10 @@ use warnings;
 use Cwd qw( realpath );
 use DateTime;
 use File::Spec::Functions qw( catfile splitpath updir );
-use JSON;
+use JSON qw(decode_json);
+use List::Util qw( uniq );
 use LWP::Simple qw/ get /;
-use Time::Local();
+use Time::Local ();
 
 my $URL = 'http://www.gov.uk/bank-holidays.json';
 
@@ -25,6 +26,11 @@ write_file( get_dates( download_json() ) );
 
 exit;
 
+sub file {
+    return catfile( ( splitpath( realpath __FILE__ ) )[ 0, 1 ],
+        updir, qw(lib Date Holidays GB.pm) );
+}
+
 sub download_json {
 
     my $contents = get $URL or die "Can't download $URL";
@@ -33,7 +39,6 @@ sub download_json {
 }
 
 sub get_dates {
-
     my $data = shift;
 
     my %holiday;
@@ -42,19 +47,17 @@ sub get_dates {
 
         foreach my $event ( @{ $data->{$region}->{events} } ) {
 
-            $holiday{ $event->{date} }->{ $CODE{$region} } = $event->{title};
+            my ($year) = split /-/, $event->{date};
 
+            $holiday{$year}->{ $event->{date} }->{ $CODE{$region} } = $event->{title};
         }
     }
 
-    return %holiday;
+    return \%holiday;
 }
 
-sub write_file {
-    my %holiday = @_;
-
-    my $file = catfile( ( splitpath( realpath __FILE__ ) )[ 0, 1 ],
-        updir, qw(lib Date Holidays GB.pm) );
+sub read_file {
+    my ($file) = @_;
 
     open my $READ, '<:encoding(utf-8)', $file
         or die "Unable to open $file for reading: $!";
@@ -63,11 +66,20 @@ sub write_file {
 
     close $READ;
 
+    my ( $pm, $data ) = split /__DATA__/, $contents;
+
+    return ( $pm, $data );
+}
+
+sub write_file {
+    my ($holiday_data) = @_;
+
+    my $file = file();
+
+    my ( $pm, $data ) = read_file($file);
+
     open my $WRITE, '>:encoding(utf-8)', $file
         or die "Unable to open $file for writing: $!";
-
-    # ditch __DATA__ section
-    my ($pm,undef) = split /__DATA__/, $contents;
 
     my $now = DateTime->now->ymd;
 
@@ -75,19 +87,46 @@ sub write_file {
 
     print $WRITE $pm;
     print $WRITE "__DATA__\n";
-    print $WRITE holiday_data( %holiday );
+    print $WRITE holiday_data( parse_existing($data), $holiday_data );
 
     close $WRITE;
+
+    return 1;
+}
+
+sub parse_existing {
+    my ($data) = @_;
+
+    my %parsed;
+    my @lines = split /\n/, $data;
+    foreach my $line (@lines) {
+        next unless $line && $line =~ /\w/;
+        my ( $date, $code, $name ) = split /\t/, $line;
+
+        my ($year) = split /-/, $date;
+
+        $parsed{$year}->{$date}->{$code} = $name;
+    }
+
+    return \%parsed;
 }
 
 sub holiday_data {
-    my %holiday = @_;
+    my ( $existing, $new ) = @_;
+
+    my @years = uniq keys %{$existing}, keys %{$new};
 
     my $data;
-    foreach my $date ( sort keys %holiday ) {
-        foreach my $code ( sort keys %{ $holiday{$date} } ) {
-            $data .= sprintf( "%s\t%s\t%s\n",
-                $date, $code, $holiday{$date}->{$code} );
+    foreach my $year (sort @years) {
+
+        # include old data, if removed from current download
+        my $source = $new->{$year} ? $new->{$year} : $existing->{$year};
+
+        foreach my $date ( sort keys %{$source} ) {
+            foreach my $code ( sort keys %{ $source->{$date} } ) {
+                $data
+                    .= sprintf( "%s\t%s\t%s\n", $date, $code, $source->{$date}->{$code} );
+            }
         }
     }
 

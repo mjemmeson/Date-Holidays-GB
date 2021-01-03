@@ -1,10 +1,10 @@
 # NAME
 
-Date::Holidays::GB - Determine British holidays - Current UK public and bank holiday dates up to 2019
+Date::Holidays::GB - Determine British holidays - Current UK public and bank holiday dates up to 2021
 
 # SYNOPSIS
 
-    use Date::Holidays::GB qw/ holidays is_holiday /;
+    use Date::Holidays::GB qw/ holidays is_holiday next_holiday /;
 
     # All UK holidays
     my $holidays = holidays( year => 2013 );
@@ -19,23 +19,37 @@ Date::Holidays::GB - Determine British holidays - Current UK public and bank hol
         print "No work today!";
     }
 
+    # simpler "date" parameter (from v0.014)
+    if ( is_holiday( date => '2013-12-25' ) ) {
+        print "No work today!";
+    }
+
+    # returns hashref of next holiday dates for regions (default all regions,
+    # individually and together)
+    my $next_holiday = next_holiday();
+    my $next_holiday = next_holiday( 'EAW', 'NIR' );
+
 # DESCRIPTION
 
-A [Date::Holidays](https://metacpan.org/pod/Date::Holidays) style package updated with the British bank holiday dates now
+A [Date::Holidays](https://metacpan.org/pod/Date%3A%3AHolidays) style package updated with the British bank holiday dates now
 published at [https://www.gov.uk/bank-holidays](https://www.gov.uk/bank-holidays). Holidays may apply to all
 regions, or some combination - see the `regions` parameter for more details.
+
+N.B. - Dates of future holidays may occasionally be updated after they've been
+published.
 
 Module is named with correct ISO-3166-1 code for the United Kingdom: "GB"
 (Great Britain)
 
 To just work with holiday days for a single region, use one of the subclasses:
-[Date::Holidays::GB::EAW](https://metacpan.org/pod/Date::Holidays::GB::EAW), [Date::Holidays::GB::NIR](https://metacpan.org/pod/Date::Holidays::GB::NIR), or
-[Date::Holidays::GB::SCT](https://metacpan.org/pod/Date::Holidays::GB::SCT).
+[Date::Holidays::GB::EAW](https://metacpan.org/pod/Date%3A%3AHolidays%3A%3AGB%3A%3AEAW), [Date::Holidays::GB::NIR](https://metacpan.org/pod/Date%3A%3AHolidays%3A%3AGB%3A%3ANIR), or
+[Date::Holidays::GB::SCT](https://metacpan.org/pod/Date%3A%3AHolidays%3A%3AGB%3A%3ASCT).
 
 # EXPORTS
 
-Exports `holidays` and `is_holiday` on demand. Also can export the aliases
-`gb_holidays` and `is_gb_holiday`.
+Exports `holidays`, `is_holiday`, `next_holiday` on demand.
+Also can export the aliases `gb_holidays`, `is_gb_holiday`
+and `next_gb_holiday`.
 
 # METHODS
 
@@ -50,7 +64,7 @@ The argument list should be in the following order: year, month, day, and
 (optionally) regions.
 
 Note that you will need to specify region(s) to make correct use of this
-module!
+module - Bank Holidays are not the same throughout the UK!
 
 ## holidays
 
@@ -68,12 +82,18 @@ taking place on that date, with the region name(s) in parenthesis.
 Holidays that occur in all regions are returned with a single canonical name,
 taken from the name in England & Wales.
 
-Date keys are in the format MMDD, as per the behaviour of [Date::Holidays](https://metacpan.org/pod/Date::Holidays).
+Date keys are in the format MMDD, as per the behaviour of [Date::Holidays](https://metacpan.org/pod/Date%3A%3AHolidays).
 
 ## is\_holiday
 
     # year, month, day, [regions]
     my $holiday = Date::Holidays::GB->is_holiday( @args );
+
+or
+
+    # date in YYYY-MM-DD format
+    # ( date => ..., [ regions => \@. .. ] )
+    my $holiday = Date::Holidays::GB->is_holiday( %args );
 
 or
 
@@ -83,6 +103,15 @@ or
 Returns the holiday details (as per `holidays`) but for a single date.
 Returns false if the specified date is not a holiday in the appropriate
 region(s).
+
+## next\_holiday
+
+    my $next_holiday = Date::Holidays::GB->next_holiday( @regions );
+
+Returns the holiday details for the next holiday in the specified regions.
+If no regions are specified, returns the next holiday dates for all regions.
+
+The `all` key in the results is the next holiday observed by all regions.
 
 ## date\_generated
 
@@ -107,10 +136,10 @@ update/alter the package if necessary.
 
 # SEE ALSO
 
-- [Date::Holidays](https://metacpan.org/pod/Date::Holidays)
-- [Date::Holidays::UK](https://metacpan.org/pod/Date::Holidays::UK) - not currently updated
-- [Date::Holidays::UK::EnglandAndWales](https://metacpan.org/pod/Date::Holidays::UK::EnglandAndWales) - only England and Wales
-- [Date::Holidays::EnglandWales](https://metacpan.org/pod/Date::Holidays::EnglandWales) - not currently updated
+- [Date::Holidays](https://metacpan.org/pod/Date%3A%3AHolidays)
+- [Date::Holidays::UK](https://metacpan.org/pod/Date%3A%3AHolidays%3A%3AUK) - not currently updated
+- [Date::Holidays::UK::EnglandAndWales](https://metacpan.org/pod/Date%3A%3AHolidays%3A%3AUK%3A%3AEnglandAndWales) - only England and Wales
+- [Date::Holidays::EnglandWales](https://metacpan.org/pod/Date%3A%3AHolidays%3A%3AEnglandWales) - not currently updated
 
 # SUPPORT
 
@@ -139,7 +168,7 @@ Michael Jemmeson <mjemmeson@cpan.org>
 
 # COPYRIGHT
 
-This software is copyright (c) 2013-2018 by Michael Jemmeson.
+This software is copyright (c) 2013-2020 by Michael Jemmeson.
 
 # LICENSE
 

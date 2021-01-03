@@ -1,12 +1,14 @@
 package Date::Holidays::GB;
 
-our $VERSION = '0.012';
+our $VERSION = '0.017';
 
-# ABSTRACT: Determine British holidays - Current UK public and bank holiday dates up to 2019
+# ABSTRACT: Determine British holidays - Current UK public and bank holiday dates up to 2021
 
 use strict;
 use warnings;
 use utf8;
+
+use DateTime;
 
 use base qw( Date::Holidays::Super Exporter );
 our @EXPORT_OK = qw(
@@ -15,6 +17,8 @@ our @EXPORT_OK = qw(
   holidays_ymd
   is_holiday
   is_gb_holiday
+  next_holiday
+  next_gb_holiday
 );
 
 # See
@@ -81,7 +85,8 @@ sub holidays {
 
         if ( $args{ymd} ) {
             $return{$date} = $string;
-        } else {
+        }
+        else {
             my ( undef, $m, undef, $d ) = unpack( 'A5A2A1A2', $date );
             $return{ $m . $d } = $string;
         }
@@ -103,42 +108,59 @@ sub is_gb_holiday { return is_holiday(@_) }
 
 sub is_holiday {
     my %args
-        = $_[0] =~ m/\D/
+        = $_[0] =~ m/[^0-9-]/
         ? @_
         : ( year => $_[0], month => $_[1], day => $_[2], regions => $_[3] );
 
-    my ( $y, $m, $d ) = @args{qw/ year month day /};
-    die "Must specify year, month and day" unless $y && $m && $d;
+    my ( $y, $m, $d );
+
+    if ( $args{date} ) {
+        ( $y, $m, $d ) = $args{date} =~ m{^([0-9]{4})-([0-9]{2})-([0-9]{2})$};
+    }
+    else {
+        ( $y, $m, $d ) = @args{qw/ year month day /};
+    }
+
+    die "Must specify either 'date' or 'year', 'month' and 'day'"
+        unless $y && $m && $d;
+
+    my $date = sprintf( "%04d-%02d-%02d", $y, $m, $d );
 
     # return if empty regions list (undef gets full list)
     my @region_codes = @{ $args{regions} || REGIONS }
         or return;
 
     # return if no region has holiday
-    my $holiday = $holidays{$y}->{ sprintf( "%04d-%02d-%02d", $y, $m, $d ) }
+    my $holiday = $holidays{$y}->{$date}
         or return;
 
     return _holiday( $holiday, \@region_codes );
 }
 
-sub next_holiday {
-    my @regions = (shift) || @{+REGIONS};
+sub next_gb_holiday { return next_holiday(@_) }
 
-    my ( $d, $m, $year ) = ( localtime() )[ 3 .. 5 ];
-    my $today = sprintf( "%04d-%02d-%02d", $year + 1900, $m + 1, $d );
+sub next_holiday {
+    my @regions = @_;
+
+    unless (@regions) {
+        @regions = ( 'all', @{ +REGIONS } );
+    }
+
+    my $now   = DateTime->now->set_time_zone("Europe/London");
+    my $year  = $now->year;
+    my $today = $now->ymd;
 
     my %next_holidays;
 
     foreach my $date ( sort keys %{ $holidays{$year} } ) {
-
         next unless $date gt $today;
 
         my $holiday = $holidays{$year}->{$date};
 
-        foreach my $region ( 'all', @regions ) {
+        foreach my $region (@regions) {
             my $name = $holiday->{$region} or next;
 
-            $next_holidays{$region} ||= $name;
+            $next_holidays{$region} ||= { name => $name, date => $date };
         }
 
         last if $next_holidays{all} or keys %next_holidays == @{ +REGIONS };
@@ -174,7 +196,7 @@ sub _holiday {
     return join( ', ', @strings );
 }
 
-sub date_generated { '2019-01-09' }
+sub date_generated { '2020-06-04' }
 
 1;
 
@@ -408,9 +430,9 @@ __DATA__
 2020-04-10	SCT	Good Friday
 2020-04-13	EAW	Easter Monday
 2020-04-13	NIR	Easter Monday
-2020-05-04	EAW	Early May bank holiday
-2020-05-04	NIR	Early May bank holiday
-2020-05-04	SCT	Early May bank holiday
+2020-05-08	EAW	Early May bank holiday (VE day)
+2020-05-08	NIR	Early May bank holiday (VE day)
+2020-05-08	SCT	Early May bank holiday (VE day)
 2020-05-25	EAW	Spring bank holiday
 2020-05-25	NIR	Spring bank holiday
 2020-05-25	SCT	Spring bank holiday
@@ -425,3 +447,30 @@ __DATA__
 2020-12-28	EAW	Boxing Day
 2020-12-28	NIR	Boxing Day
 2020-12-28	SCT	Boxing Day
+2021-01-01	EAW	New Year’s Day
+2021-01-01	NIR	New Year’s Day
+2021-01-01	SCT	New Year’s Day
+2021-01-04	SCT	2nd January
+2021-03-17	NIR	St Patrick’s Day
+2021-04-02	EAW	Good Friday
+2021-04-02	NIR	Good Friday
+2021-04-02	SCT	Good Friday
+2021-04-05	EAW	Easter Monday
+2021-04-05	NIR	Easter Monday
+2021-05-03	EAW	Early May bank holiday
+2021-05-03	NIR	Early May bank holiday
+2021-05-03	SCT	Early May bank holiday
+2021-05-31	EAW	Spring bank holiday
+2021-05-31	NIR	Spring bank holiday
+2021-05-31	SCT	Spring bank holiday
+2021-07-12	NIR	Battle of the Boyne (Orangemen’s Day)
+2021-08-02	SCT	Summer bank holiday
+2021-08-30	EAW	Summer bank holiday
+2021-08-30	NIR	Summer bank holiday
+2021-11-30	SCT	St Andrew’s Day
+2021-12-27	EAW	Christmas Day
+2021-12-27	NIR	Christmas Day
+2021-12-27	SCT	Christmas Day
+2021-12-28	EAW	Boxing Day
+2021-12-28	NIR	Boxing Day
+2021-12-28	SCT	Boxing Day
