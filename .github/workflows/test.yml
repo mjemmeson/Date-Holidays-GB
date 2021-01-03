@@ -70,6 +70,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Build and make dist
         run: |
+          cpanm --notest --installdeps .
           perl ./Build.PL
           ./Build
           ./Build dist
