@@ -38,7 +38,7 @@
             "Dist::Milla" : "v1.0.20",
             "Dist::Zilla::Plugin::MetaProvides::Package" : "0",
             "Dist::Zilla::Plugin::OurPkgVersion" : "0",
-            "Dst::Zilla::Plugin::Test::MinimumVersion" : "0",
+            "Dist::Zilla::Plugin::Test::MinimumVersion" : "0",
             "File::Spec" : "0",
             "File::Spec::Functions" : "0",
             "File::Temp" : "0",
