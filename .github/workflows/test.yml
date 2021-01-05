@@ -63,7 +63,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install dependencies
-        run: sudo apt-get install dh-make-perl libdpkg-parse-perl libmodule-build-perl liblocal-lib-perl perl-modules
+        run: sudo apt-get install dh-make-perl libdpkg-parse-perl libmodule-build-perl liblocal-lib-perl perl-modules perl libfile-sharedir-install-perl libmodule-build-tiny-perl libtest-time-perl libtest-fatal-perl libtest-most-perl
       - name: Prepare apt
         run: sudo apt-file update
       - name: Checkout
