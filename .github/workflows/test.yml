@@ -73,6 +73,7 @@ jobs:
       - name: Build and make dist
         run: |
           cpanm --notest --installdeps --with-configure --with-develop .
+          milla setup
           milla build
       - name: Prepare
         run: dh-make-perl make --build .
