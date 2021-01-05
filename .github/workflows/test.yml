@@ -60,7 +60,7 @@ jobs:
         run: prove -lv t
 
   package:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Install dependencies
         run: sudo apt-get install dselect dh-make-perl libdpkg-parse-perl libmodule-build-perl liblocal-lib-perl perl-modules perl libfile-sharedir-install-perl libmodule-build-tiny-perl libtest-time-perl libtest-fatal-perl libtest-most-perl
