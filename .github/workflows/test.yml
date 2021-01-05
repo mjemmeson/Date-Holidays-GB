@@ -74,5 +74,7 @@ jobs:
         run: |
           cpanm --notest --installdeps --with-configure --with-develop .
           milla build
+          ls -alR
+          mv Date-Holidays-GB-0.017.tar.gz ../Date-Holidays-GB.tar.gz
       - name: Prepare
         run: dh-make-perl make --build .
