@@ -63,18 +63,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install dependencies
-        run: sudo apt-get install dh-make-perl libmodule-build-perl liblocal-lib-perl perl-modules
+        run: sudo apt-get install dh-make-perl dh-dist-zilla libmodule-build-perl liblocal-lib-perl perl-modules
       - name: Prepare apt
         run: sudo apt-file update
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set up Perl
         uses: shogo82148/actions-setup-perl@v1
-      - name: Build and make dist
-        run: |
-          cpanm --notest --installdeps --with-configure --with-develop .
-          milla build
-          ls -alR
-          mv Date-Holidays-GB-0.017.tar.gz ../Date-Holidays-GB.tar.gz
-      - name: Prepare
-        run: dh-make-perl make --build .
+#      - name: Build and make dist
+#        run: |
+#          cpanm --notest --installdeps --with-configure --with-develop .
+#          milla build
+#          ls -alR
+#          mv Date-Holidays-GB-0.017.tar.gz ../Date-Holidays-GB.tar.gz
+#      - name: Build deb
+#        run: dh-make-perl make --build .
+      - name: Build deb
+        run: dh-dist-zilla make --build .
