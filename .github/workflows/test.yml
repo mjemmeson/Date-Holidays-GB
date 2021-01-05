@@ -77,4 +77,4 @@ jobs:
           mv Date-Holidays-GB-*.tar.gz ../Date-Holidays-GB.tar.gz
       - name: Build deb
         run: |
-          dh-make-perl make --verbose --requiredeps --build .
+          fakeroot dh-make-perl make --verbose --requiredeps --build .
