@@ -63,7 +63,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install dependencies
-        run: sudo apt-get install dh-make-perl libmodule-build-perl liblocal-lib-perl perl-modules
+        run: sudo apt-get install dh-make-perl libdpkg-parse-perl libmodule-build-perl liblocal-lib-perl perl-modules
       - name: Prepare apt
         run: sudo apt-file update
       - name: Checkout
@@ -77,5 +77,4 @@ jobs:
           mv Date-Holidays-GB-*.tar.gz ../Date-Holidays-GB.tar.gz
       - name: Build deb
         run: |
-          dh-make-perl .
-          debuild
+          dh-make-perl make --verbose --requiredeps --build .
