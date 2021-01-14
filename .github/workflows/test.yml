@@ -88,6 +88,8 @@ jobs:
           cd ../..
       - name: Build and make dist for Date::Holidays::GB
         run: |
+          pwd
+          tree ..
           cd Date-Holidays-GB
           cpanm --notest --installdeps --with-configure --with-develop .
           milla build
