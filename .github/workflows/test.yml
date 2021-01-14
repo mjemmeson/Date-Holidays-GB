@@ -85,7 +85,7 @@ jobs:
           cd libdate-holidays-super-perl
           debuild -Zgzip -uc -us
           sudo dpkg -i ../libdate-holidays-super-perl*.deb
-          sudo apt-cache dumpavail | dpkg --merge-avail # Update available packages
+          sudo apt-cache dumpavail | sudo dpkg --merge-avail # Update available packages
           cd ../..
       - name: Build and make dist for Date::Holidays::GB
         run: |
