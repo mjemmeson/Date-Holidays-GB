@@ -63,7 +63,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Install dependencies
-        run: sudo apt-get install dselect dh-make-perl libdpkg-parse-perl libmodule-build-perl liblocal-lib-perl perl-modules perl libfile-sharedir-install-perl libmodule-build-tiny-perl libtest-time-perl libtest-fatal-perl libtest-most-perl libtest-simple-perl libtest-kwalitee-perl libpod-coverage-trustpod-perl libtest-pod-coverage-perl libtest-pod-perl
+        run: sudo apt-get install devscripts dselect dh-make-perl libdpkg-parse-perl libmodule-build-perl liblocal-lib-perl perl-modules perl libfile-sharedir-install-perl libmodule-build-tiny-perl libtest-time-perl libtest-fatal-perl libtest-most-perl libtest-simple-perl libtest-kwalitee-perl libpod-coverage-trustpod-perl libtest-pod-coverage-perl libtest-pod-perl
       - name: Prepare apt
         run: sudo apt-file update
       - name: Do dselect update
