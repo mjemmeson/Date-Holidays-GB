@@ -78,6 +78,11 @@ jobs:
           milla build
           mv Date-Holidays-GB-*.tar.gz ../Date-Holidays-GB.tar.gz
       - name: Build deb
-        run: fakeroot dh-make-perl make --requiredeps --cpan Date::Holidays::Super
+        run: |
+          fakeroot dh-make-perl make --requiredeps --cpan Date::Holidays::Super
+          debuild
+          sudo dpkg -i ../libdate-holidays-super*.deb
       - name: Build deb
-        run: fakeroot dh-make-perl make --requiredeps --build .
+        run: |
+          fakeroot dh-make-perl make --requiredeps --build .
+          debuild
