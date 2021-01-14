@@ -78,13 +78,14 @@ jobs:
           mkdir Date-Holidays-Super
           tree ..
           cd Date-Holidays-Super
-          export DEBFULLNAME="John Smith"
-          export DEBEMAIL="jsmith@example.com"
+          #export DEBFULLNAME="John Smith"
+          #export DEBEMAIL="jsmith@example.com"
           fakeroot dh-make-perl --verbose make --requiredeps --cpan Date::Holidays::Super
           tree ..
           cd libdate-holidays-super-perl
           debuild -Zgzip -uc -us
           sudo dpkg -i ../libdate-holidays-super-perl*.deb
+          sudo apt-cache dumpavail | dpkg --merge-avail # Update available packages
           cd ../..
       - name: Build and make dist for Date::Holidays::GB
         run: |
@@ -96,5 +97,5 @@ jobs:
           mv Date-Holidays-GB-*.tar.gz ../Date-Holidays-GB.tar.gz
       - name: Build Date::Holidays::GB deb
         run: |
-          fakeroot dh-make-perl --verbose make --requiredeps --build .
+          fakeroot dh-make-perl --verbose make --requiredeps .
           debuild -Zgzip -uc -us
