@@ -99,4 +99,5 @@ jobs:
         run: |
           fakeroot dh-make-perl --verbose make --requiredeps .
           cat /tmp/libdate-holidays-gb-perl_*.diff*
-          debuild -Zgzip -uc -us || cat /tmp/libdate-holidays-gb-perl_*.diff*
+          debuild -Zgzip -uc -us
+          cat /tmp/libdate-holidays-gb-perl_*.diff* || true
