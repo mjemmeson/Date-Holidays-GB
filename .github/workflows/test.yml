@@ -95,8 +95,14 @@ jobs:
           cpanm --notest --installdeps --with-configure --with-develop .
           milla build
           mv Date-Holidays-GB-*.tar.gz ../Date-Holidays-GB.tar.gz
+          cd ../
+          mv Date-Holidays-GB Date-Holidays-GB.build
+          tar -xvf Date-Holidays-GB.tar.gz
+          tree ..
+          cd Date-Holidays-GB
       - name: Build Date::Holidays::GB deb
         run: |
+          pwd
           fakeroot dh-make-perl --verbose make --requiredeps .
           cat /tmp/libdate-holidays-gb-perl_*.diff* || echo "No diff files"
           debuild -Zgzip -uc -us || cat /tmp/libdate-holidays-gb-perl_*.diff*
