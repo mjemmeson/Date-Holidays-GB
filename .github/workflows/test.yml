@@ -90,7 +90,7 @@ jobs:
         run: |
           pwd
           tree ..
-          cd Date-Holidays-GB
+          #cd Date-Holidays-GB # We seem to end up back where we started in each run step
           cpanm --notest --installdeps --with-configure --with-develop .
           milla build
           mv Date-Holidays-GB-*.tar.gz ../Date-Holidays-GB.tar.gz
