@@ -83,7 +83,7 @@ jobs:
           fakeroot dh-make-perl --verbose make --requiredeps --cpan Date::Holidays::Super
           tree ..
           cd libdate-holidays-super-perl
-          debuild
+          debuild -Zgzip -uc -us
           sudo dpkg -i ../libdate-holidays-super-perl*.deb
           cd ../..
       - name: Build and make dist for Date::Holidays::GB
@@ -95,4 +95,4 @@ jobs:
       - name: Build Date::Holidays::GB deb
         run: |
           fakeroot dh-make-perl --verbose make --requiredeps --build .
-          debuild
+          debuild -Zgzip -uc -us
