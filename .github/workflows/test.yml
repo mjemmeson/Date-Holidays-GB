@@ -98,5 +98,6 @@ jobs:
       - name: Build Date::Holidays::GB deb
         run: |
           fakeroot dh-make-perl --verbose make --requiredeps .
-          cat /tmp/libdate-holidays-gb-perl_*.diff*
+          cat /tmp/libdate-holidays-gb-perl_*.diff* || echo "No diff files"
           debuild -Zgzip -uc -us
+          cat /tmp/libdate-holidays-gb-perl_*.diff* || echo "No diff files"
