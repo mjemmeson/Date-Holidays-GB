@@ -109,13 +109,17 @@ jobs:
       - name: Move and validate debs
         run: |
           cd ..
+          tree
           ls *.deb
-          mv *.deb Date-Holidays-GB
-          cd Date-Holidays-GB
+          mkdir -p Date-Holidays-GB/debs
+          mv *.deb Date-Holidays-GB/debs
+          mv Date-Holidays-Super/*.deb Date-Holidays-GB/debs
+          cd Date-Holidays-GB/debs
+          ls *.deb
           dpkg --info libdate-holidays-super-perl*.deb
           dpkg --info libdate-holidays-gb-perl*.deb
       - uses: actions/upload-artifact@v2
         with:
           name: debs
-          path: "*.deb"
+          path: "debs/*.deb"
           
