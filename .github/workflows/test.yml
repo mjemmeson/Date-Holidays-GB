@@ -99,7 +99,8 @@ jobs:
           mv Date-Holidays-GB Date-Holidays-GB.build
           tar -xvf Date-Holidays-GB.tar.gz
           tree ..
-          mv Date-Holidays-GB* Date-Holidays-GB
+          mv Date-Holidays-GB/Date-Holidays-GB-* Date-Holidays-GB/Date-Holidays-GB
+          tree ..
       - name: Build Date::Holidays::GB deb
         run: |
           pwd
