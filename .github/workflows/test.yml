@@ -76,12 +76,12 @@ jobs:
         run: |
           cd ..
           mkdir Date-Holidays-Super
-          tree ..
+          tree -d ..
           cd Date-Holidays-Super
           #export DEBFULLNAME="John Smith"
           #export DEBEMAIL="jsmith@example.com"
           fakeroot dh-make-perl --verbose make --requiredeps --cpan Date::Holidays::Super
-          tree ..
+          tree -d ..
           cd libdate-holidays-super-perl
           debuild -Zgzip -uc -us
           sudo dpkg -i ../libdate-holidays-super-perl*.deb
@@ -90,7 +90,7 @@ jobs:
       - name: Build and make dist for Date::Holidays::GB
         run: |
           pwd
-          tree ..
+          tree -d ..
           #cd Date-Holidays-GB # We seem to end up back where we started in each run step
           cpanm --notest --installdeps --with-configure --with-develop .
           milla build
@@ -98,9 +98,9 @@ jobs:
           cd ../
           mv Date-Holidays-GB Date-Holidays-GB.build
           tar -xvf Date-Holidays-GB.tar.gz
-          tree ..
-          mv Date-Holidays-GB/Date-Holidays-GB-* Date-Holidays-GB/Date-Holidays-GB
-          tree ..
+          tree -d ..
+          mv Date-Holidays-GB-* Date-Holidays-GB
+          tree -d ..
       - name: Build Date::Holidays::GB deb
         run: |
           pwd
