@@ -105,14 +105,17 @@ jobs:
         run: |
           pwd
           fakeroot dh-make-perl --verbose make --requiredeps .
-          cat /tmp/libdate-holidays-gb-perl_*.diff* || echo "No diff files"
-          debuild -Zgzip -uc -us || cat /tmp/libdate-holidays-gb-perl_*.diff*
-      - name: Validate debs
+          debuild -Zgzip -uc -us
+      - name: Move and validate debs
         run: |
           cd ..
-          dpkg --info *.deb
+          ls *.deb
+          mv *.deb Date-Holidays-GB
+          cd Date-Holidays-GB
+          dpkg --info libdate-holidays-super-perl*.deb
+          dpkg --info libdate-holidays-gb-perl*.deb
       - uses: actions/upload-artifact@v2
         with:
           name: debs
-          path: ../*.deb
+          path: *.deb
           
