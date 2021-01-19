@@ -132,7 +132,7 @@ jobs:
           repo_supported_version: |
             bionic
             focal
-          file: libdate-holidays-gb-perl*.deb
+          file: debs/libdate-holidays-super-perl*.deb
           file_target_version: bionic
           private_key: ${{ secrets.APT_SIGNING_KEY }}
           key_passphrase: ${{ secrets.APT_PASSPHRASE }}
