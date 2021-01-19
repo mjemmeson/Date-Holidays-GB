@@ -125,7 +125,7 @@ jobs:
           name: debs
           path: "debs/*.deb"
       - name: Release on Github Pages APT repo
-        uses: jrandiny/apt-repo-action@v2.0.1
+        uses: peternewman/apt-repo-action@globs
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           repo_supported_arch: amd64
