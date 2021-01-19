@@ -60,6 +60,8 @@ jobs:
         run: prove -lv t
 
   package:
+    # Only package if we passed all the tests
+    needs: test
     runs-on: ubuntu-20.04
     steps:
       - name: Install dependencies
