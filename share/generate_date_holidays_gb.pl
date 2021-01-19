@@ -10,7 +10,7 @@ use Cwd qw( realpath );
 use DateTime;
 use File::Spec::Functions qw( catfile splitpath updir );
 use JSON qw(decode_json);
-use List::Util qw( uniq );
+use List::Util 1.45 qw( uniq );
 use LWP::Simple qw/ get /;
 use Time::Local ();
 
