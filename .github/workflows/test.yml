@@ -91,35 +91,35 @@ jobs:
           sudo dpkg -i ../libdate-holidays-super-perl*.deb
           sudo apt-cache dumpavail | sudo dpkg --merge-avail # Update available packages
           cd ../..
-      - name: Build and make dist for Date::Holidays::GB
-        run: |
-          #cd Date-Holidays-GB # We seem to end up back where we started in each run step
-          cpanm --notest --installdeps --with-configure --with-develop .
-          milla build
-          mv Date-Holidays-GB-*.tar.gz ../Date-Holidays-GB.tar.gz
-          cd ../
-          mv Date-Holidays-GB Date-Holidays-GB.build
-          tar -xvf Date-Holidays-GB.tar.gz
-          mv Date-Holidays-GB-* Date-Holidays-GB
-      - name: Build Date::Holidays::GB deb
-        run: |
-          fakeroot dh-make-perl --verbose make --requiredeps .
-          # Force a .tar.gz file within the deb for maximum compatibility
-          echo -e "\noverride_dh_builddeb:\n\tdh_builddeb -- -Zgzip" >> debian/rules
-          # Remove perl multiarch for backwards compatibility
-          echo -e "\nexecute_after_dh_perl:\n\tdh_perl\n\tsed -i -e 's/perl:any/perl/g' debian/*.substvars" >> debian/rules
-          debuild -Zgzip -uc -us
+#      - name: Build and make dist for Date::Holidays::GB
+#        run: |
+#          #cd Date-Holidays-GB # We seem to end up back where we started in each run step
+#          cpanm --notest --installdeps --with-configure --with-develop .
+#          milla build
+#          mv Date-Holidays-GB-*.tar.gz ../Date-Holidays-GB.tar.gz
+#          cd ../
+#          mv Date-Holidays-GB Date-Holidays-GB.build
+#          tar -xvf Date-Holidays-GB.tar.gz
+#          mv Date-Holidays-GB-* Date-Holidays-GB
+#      - name: Build Date::Holidays::GB deb
+#        run: |
+#          fakeroot dh-make-perl --verbose make --requiredeps .
+#          # Force a .tar.gz file within the deb for maximum compatibility
+#          echo -e "\noverride_dh_builddeb:\n\tdh_builddeb -- -Zgzip" >> debian/rules
+#          # Remove perl multiarch for backwards compatibility
+#          echo -e "\nexecute_after_dh_perl:\n\tdh_perl\n\tsed -i -e 's/perl:any/perl/g' debian/*.substvars" >> debian/rules
+#          debuild -Zgzip -uc -us
       - name: Move and validate debs
         run: |
           cd ..
           ls *.deb
           mkdir -p Date-Holidays-GB/debs
-          mv *.deb Date-Holidays-GB/debs
+          #mv *.deb Date-Holidays-GB/debs
           mv Date-Holidays-Super/*.deb Date-Holidays-GB/debs
           cd Date-Holidays-GB/debs
           ls *.deb
           dpkg --info libdate-holidays-super-perl*.deb
-          dpkg --info libdate-holidays-gb-perl*.deb
+#          dpkg --info libdate-holidays-gb-perl*.deb
       - uses: actions/upload-artifact@v2
         with:
           name: debs
@@ -136,3 +136,4 @@ jobs:
           file_target_version: bionic
           private_key: ${{ secrets.APT_SIGNING_KEY }}
           key_passphrase: ${{ secrets.APT_PASSPHRASE }}
+          debug: true
