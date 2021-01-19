@@ -85,13 +85,11 @@ jobs:
           cd libdate-holidays-super-perl
           # Force a .tar.gz file within the deb for maximum compatibility
           echo -e "\noverride_dh_builddeb:\n\tdh_builddeb -- -Zgzip" >> debian/rules
-          cat debian/control
-          ls debian/
           # Remove perl multiarch for backwards compatibility
-          #sed -i -e 's/perl:any/perl/g' debian/libdate-holidays-super-perl.substvars
-          sed -i -e 's/perl:any/perl/g' debian/control
-          #cat debian/libdate-holidays-super-perl.substvars
+          echo -e "\nexecute_after_dh_perl:\n\tdh_perl\n\tsed -i -e 's/perl:any/perl/g' debian/*.substvars" >> debian/rules
+          cat debian/rules
           debuild -Zgzip -uc -us
+          cat debian/libdate-holidays-super-perl.substvars
           sudo dpkg -i ../libdate-holidays-super-perl*.deb
           sudo apt-cache dumpavail | sudo dpkg --merge-avail # Update available packages
           cd ../..
@@ -116,8 +114,8 @@ jobs:
           # Force a .tar.gz file within the deb for maximum compatibility
           echo -e "\noverride_dh_builddeb:\n\tdh_builddeb -- -Zgzip" >> debian/rules
           # Remove perl multiarch for backwards compatibility
-          sed -i -e 's/perl:any/perl/g' debian/libdate-holidays-gb-perl.substvars
-          cat debian/rules
+          # Remove perl multiarch for backwards compatibility
+          echo -e "\nexecute_after_dh_perl:\n\tdh_perl\n\tsed -i -e 's/perl:any/perl/g' debian/*.substvars" >> debian/rules
           debuild -Zgzip -uc -us
       - name: Move and validate debs
         run: |
