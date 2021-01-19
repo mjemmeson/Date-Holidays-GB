@@ -61,7 +61,7 @@ jobs:
 
   package:
     # Only package if we passed all the tests
-    needs: test
+    #needs: test
     runs-on: ubuntu-20.04
     steps:
       - name: Install dependencies
@@ -124,3 +124,15 @@ jobs:
         with:
           name: debs
           path: "debs/*.deb"
+      - name: Release on Github Pages APT repo
+        uses: jrandiny/apt-repo-action@v2.0.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          repo_supported_arch: amd64
+          repo_supported_version: |
+            bionic
+            focal
+          file: libdate-holidays-gb-perl*.deb
+          file_target_version: bionic
+          private_key: ${{ secrets.APT_SIGNING_KEY }}
+          key_passphrase: ${{ secrets.APT_PASSPHRASE }}
