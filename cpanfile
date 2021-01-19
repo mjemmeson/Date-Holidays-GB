@@ -25,6 +25,7 @@ on 'test' => sub {
 on 'configure' => sub {
     requires "ExtUtils::MakeMaker"     => "6.17";
     requires "File::ShareDir::Install" => "0.03";
+    requires "Module::Build::Tiny"     => "0.034";
 };
 
 on 'develop' => sub {
@@ -33,7 +34,7 @@ on 'develop' => sub {
     requires "Dist::Milla";
     requires "Dist::Zilla::Plugin::MetaProvides::Package";
     requires "Dist::Zilla::Plugin::OurPkgVersion";
-    requires "Dst::Zilla::Plugin::Test::MinimumVersion";
+    requires "Dist::Zilla::Plugin::Test::MinimumVersion";
     requires "File::Spec";
     requires "File::Spec::Functions";
     requires "File::Temp";

@@ -53,7 +53,7 @@ jobs:
 
       - name: Install
         run: |
-          cpanm --notest --installdeps .
+          cpanm --notest --installdeps --with-configure .
           perl Build.PL
           ./Build build
       - name: Test
