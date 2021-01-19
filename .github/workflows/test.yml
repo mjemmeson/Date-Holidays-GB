@@ -76,27 +76,21 @@ jobs:
         run: |
           cd ..
           mkdir Date-Holidays-Super
-          tree -d ..
           cd Date-Holidays-Super
           #export DEBFULLNAME="John Smith"
           #export DEBEMAIL="jsmith@example.com"
           fakeroot dh-make-perl --verbose make --requiredeps --cpan Date::Holidays::Super
-          tree -d ..
           cd libdate-holidays-super-perl
           # Force a .tar.gz file within the deb for maximum compatibility
           echo -e "\noverride_dh_builddeb:\n\tdh_builddeb -- -Zgzip" >> debian/rules
           # Remove perl multiarch for backwards compatibility
           echo -e "\nexecute_after_dh_perl:\n\tdh_perl\n\tsed -i -e 's/perl:any/perl/g' debian/*.substvars" >> debian/rules
-          cat debian/rules
           debuild -Zgzip -uc -us
-          cat debian/libdate-holidays-super-perl.substvars
           sudo dpkg -i ../libdate-holidays-super-perl*.deb
           sudo apt-cache dumpavail | sudo dpkg --merge-avail # Update available packages
           cd ../..
       - name: Build and make dist for Date::Holidays::GB
         run: |
-          pwd
-          tree -d ..
           #cd Date-Holidays-GB # We seem to end up back where we started in each run step
           cpanm --notest --installdeps --with-configure --with-develop .
           milla build
@@ -104,23 +98,18 @@ jobs:
           cd ../
           mv Date-Holidays-GB Date-Holidays-GB.build
           tar -xvf Date-Holidays-GB.tar.gz
-          tree -d ..
           mv Date-Holidays-GB-* Date-Holidays-GB
-          tree -d ..
       - name: Build Date::Holidays::GB deb
         run: |
-          pwd
           fakeroot dh-make-perl --verbose make --requiredeps .
           # Force a .tar.gz file within the deb for maximum compatibility
           echo -e "\noverride_dh_builddeb:\n\tdh_builddeb -- -Zgzip" >> debian/rules
-          # Remove perl multiarch for backwards compatibility
           # Remove perl multiarch for backwards compatibility
           echo -e "\nexecute_after_dh_perl:\n\tdh_perl\n\tsed -i -e 's/perl:any/perl/g' debian/*.substvars" >> debian/rules
           debuild -Zgzip -uc -us
       - name: Move and validate debs
         run: |
           cd ..
-          tree
           ls *.deb
           mkdir -p Date-Holidays-GB/debs
           mv *.deb Date-Holidays-GB/debs
@@ -133,4 +122,3 @@ jobs:
         with:
           name: debs
           path: "debs/*.deb"
-          
