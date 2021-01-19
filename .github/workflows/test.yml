@@ -112,7 +112,7 @@ jobs:
       - name: Move and validate debs
         run: |
           cd ..
-          ls *.deb
+          #ls *.deb
           mkdir -p Date-Holidays-GB/debs
           #mv *.deb Date-Holidays-GB/debs
           mv Date-Holidays-Super/*.deb Date-Holidays-GB/debs
