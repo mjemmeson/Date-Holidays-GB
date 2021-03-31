@@ -11,7 +11,6 @@ requires "warnings";
 on 'test' => sub {
     requires "ExtUtils::MakeMaker";
     requires "File::Spec::Functions";
-    requires "List::Util";
     requires "Test::Fatal";
     requires "Test::More";
     requires "Test::Most";
@@ -39,7 +38,7 @@ on 'develop' => sub {
     requires "File::Spec::Functions";
     requires "File::Temp";
     requires "JSON";
-    requires "List::Util";
+    requires "List::Util"          => "1.45";
     requires "LWP::Simple";
     requires "Pod::Coverage::TrustPod";
     requires "Test::CPAN::Meta";
