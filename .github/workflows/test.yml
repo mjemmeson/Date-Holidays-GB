@@ -58,3 +58,69 @@ jobs:
           ./Build build
       - name: Test
         run: prove -lv t
+
+  package:
+    # Only package if we passed all the tests
+    needs: test
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Install dependencies
+        run: sudo apt-get install tree devscripts dselect dh-make-perl libdpkg-parse-perl libmodule-build-perl liblocal-lib-perl perl-modules perl libfile-sharedir-install-perl libmodule-build-tiny-perl libtest-time-perl libtest-fatal-perl libtest-most-perl libtest-simple-perl libtest-kwalitee-perl libpod-coverage-trustpod-perl libtest-pod-coverage-perl libtest-pod-perl libdatetime-perl libversion-perl libscalar-list-utils-perl
+      - name: Prepare apt
+        run: sudo apt-file update
+      - name: Do dselect update
+        run: sudo dselect update
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up Perl
+        uses: shogo82148/actions-setup-perl@v1
+      - name: Build Date::Holidays::Super deb
+        run: |
+          cd ..
+          mkdir Date-Holidays-Super
+          cd Date-Holidays-Super
+          #export DEBFULLNAME="John Smith"
+          #export DEBEMAIL="jsmith@example.com"
+          fakeroot dh-make-perl --verbose make --requiredeps --cpan Date::Holidays::Super
+          cd libdate-holidays-super-perl
+          # Force a .tar.gz file within the deb for maximum compatibility
+          echo -e "\noverride_dh_builddeb:\n\tdh_builddeb -- -Zgzip" >> debian/rules
+          # Remove perl multiarch for backwards compatibility
+          echo -e "\nexecute_after_dh_perl:\n\tdh_perl\n\tsed -i -e 's/perl:any/perl/g' debian/*.substvars" >> debian/rules
+          debuild -Zgzip -uc -us
+          sudo dpkg -i ../libdate-holidays-super-perl*.deb
+          sudo apt-cache dumpavail | sudo dpkg --merge-avail # Update available packages
+          cd ../..
+      - name: Build and make dist for Date::Holidays::GB
+        run: |
+          #cd Date-Holidays-GB # We seem to end up back where we started in each run step
+          cpanm --notest --installdeps --with-configure --with-develop .
+          milla build
+          mv Date-Holidays-GB-*.tar.gz ../Date-Holidays-GB.tar.gz
+          cd ../
+          mv Date-Holidays-GB Date-Holidays-GB.build
+          tar -xvf Date-Holidays-GB.tar.gz
+          mv Date-Holidays-GB-* Date-Holidays-GB
+      - name: Build Date::Holidays::GB deb
+        run: |
+          fakeroot dh-make-perl --verbose make --requiredeps .
+          # Force a .tar.gz file within the deb for maximum compatibility
+          echo -e "\noverride_dh_builddeb:\n\tdh_builddeb -- -Zgzip" >> debian/rules
+          # Remove perl multiarch for backwards compatibility
+          echo -e "\nexecute_after_dh_perl:\n\tdh_perl\n\tsed -i -e 's/perl:any/perl/g' debian/*.substvars" >> debian/rules
+          debuild -Zgzip -uc -us
+      - name: Move and validate debs
+        run: |
+          cd ..
+          ls *.deb
+          mkdir -p Date-Holidays-GB/debs
+          mv *.deb Date-Holidays-GB/debs
+          mv Date-Holidays-Super/*.deb Date-Holidays-GB/debs
+          cd Date-Holidays-GB/debs
+          ls *.deb
+          dpkg --info libdate-holidays-super-perl*.deb
+          dpkg --info libdate-holidays-gb-perl*.deb
+      - uses: actions/upload-artifact@v2
+        with:
+          name: debs
+          path: "debs/*.deb"
