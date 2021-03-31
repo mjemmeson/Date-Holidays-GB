@@ -1,5 +1,5 @@
 {
-   "abstract" : "Determine British holidays - Current UK public and bank holiday dates up to 2021",
+   "abstract" : "Determine British holidays - Current UK public and bank holiday dates up to 2022",
    "author" : [
       "Michael Jemmeson <mjemmeson@cpan.org>"
    ],
@@ -44,7 +44,7 @@
             "File::Temp" : "0",
             "JSON" : "0",
             "LWP::Simple" : "0",
-            "List::Util" : "1.45",
+            "List::MoreUtils" : "0",
             "Pod::Coverage::TrustPod" : "0",
             "Test::CPAN::Meta" : "0",
             "Test::MinimumVersion" : "0",
@@ -86,19 +86,19 @@
    "provides" : {
       "Date::Holidays::GB" : {
          "file" : "lib/Date/Holidays/GB.pm",
-         "version" : "0.017"
+         "version" : "0.018"
       },
       "Date::Holidays::GB::EAW" : {
          "file" : "lib/Date/Holidays/GB/EAW.pm",
-         "version" : "0.017"
+         "version" : "0.018"
       },
       "Date::Holidays::GB::NIR" : {
          "file" : "lib/Date/Holidays/GB/NIR.pm",
-         "version" : "0.017"
+         "version" : "0.018"
       },
       "Date::Holidays::GB::SCT" : {
          "file" : "lib/Date/Holidays/GB/SCT.pm",
-         "version" : "0.017"
+         "version" : "0.018"
       }
    },
    "release_status" : "stable",
@@ -113,9 +113,10 @@
          "web" : "https://github.com/mjemmeson/Date-Holidays-GB"
       }
    },
-   "version" : "0.017",
+   "version" : "0.018",
    "x_contributors" : [
       "Michael Jemmeson <michael.jemmeson@cpan.org>",
+      "Peter Newman <peterjnewman@gmail.com>",
       "Peter Newman <peternewman@users.noreply.github.com>"
    ],
    "x_generated_by_perl" : "v5.26.3",
