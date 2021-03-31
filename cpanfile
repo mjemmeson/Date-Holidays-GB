@@ -38,7 +38,7 @@ on 'develop' => sub {
     requires "File::Spec::Functions";
     requires "File::Temp";
     requires "JSON";
-    requires "List::Util"          => "1.45";
+    requires "List::MoreUtils";
     requires "LWP::Simple";
     requires "Pod::Coverage::TrustPod";
     requires "Test::CPAN::Meta";
