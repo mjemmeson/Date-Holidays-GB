@@ -2,6 +2,9 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+ [Update]
+ - 2022 Dates added [thanks Peter Newman]
+
 0.017  2020-06-04 20:25:12 BST
 
  [Update]
