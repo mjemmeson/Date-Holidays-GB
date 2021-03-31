@@ -2,6 +2,9 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+ [Maintenance]
+ - fix incorrect method calls in POD examples (wrongly called as class methods)
+
 0.018  2021-03-31 11:26:06 BST
 
  [Update]

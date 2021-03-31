@@ -41,7 +41,7 @@ Date::Holidays::GB::SCT - Date::Holidays class for GB-SCT (Scotland)
 
 =head1 SYNOPSIS
 
-    use Date::Holidays::GB::SCT qw/ holidays is_holiday /;
+    use Date::Holidays::GB::SCT qw( holidays is_holiday );
 
     # All holidays for Scotland
     my $holidays = holidays( year => 2013 );

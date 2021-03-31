@@ -41,7 +41,7 @@ Date::Holidays::GB::NIR - Date::Holidays class for GB-NIR (Northern Ireland)
 
 =head1 SYNOPSIS
 
-    use Date::Holidays::GB::NIR qw/ holidays is_holiday /;
+    use Date::Holidays::GB::NIR qw( holidays is_holiday );
 
     # All holidays for Northern Ireland
     my $holidays = holidays( year => 2013 );
