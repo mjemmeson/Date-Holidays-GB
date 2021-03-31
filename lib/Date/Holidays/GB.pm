@@ -118,7 +118,7 @@ sub is_holiday {
         ( $y, $m, $d ) = $args{date} =~ m{^([0-9]{4})-([0-9]{2})-([0-9]{2})$};
     }
     else {
-        ( $y, $m, $d ) = @args{qw/ year month day /};
+        ( $y, $m, $d ) = @args{qw( year month day )};
     }
 
     die "Must specify either 'date' or 'year', 'month' and 'day'"
