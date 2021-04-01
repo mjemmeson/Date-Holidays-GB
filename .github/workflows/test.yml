@@ -19,16 +19,16 @@ jobs:
           - macos-latest
         perl:
           - "5.30"
-          - "5.28"
-          - "5.26"
-          - "5.24"
-          - "5.22"
-          - "5.20"
-          - "5.18"
-          - "5.16"
-          - "5.14"
-          - "5.12"
-          - "5.10"
+          #- "5.28"
+          #- "5.26"
+          #- "5.24"
+          #- "5.22"
+          #- "5.20"
+          #- "5.18"
+          #- "5.16"
+          #- "5.14"
+          #- "5.12"
+          #- "5.10"
         exclude:
           # excludes the Windows ones that don't work
           - os: windows-latest
@@ -151,6 +151,6 @@ jobs:
       - name: Copy To Branches Action
         uses: planetoftheweb/copy-to-branches@v1
         env:
-          key: ${{ steps.branch-name.outputs.base_ref_branch }}
+          key: "${{ steps.branch-name.outputs.current_branch }}${{ steps.branch-name.outputs.base_ref_branch }}"
           branches: gh-pages
           files: README.md
