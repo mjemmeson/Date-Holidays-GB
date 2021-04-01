@@ -131,7 +131,6 @@ jobs:
       - name: Release on Github Pages APT repo
         uses: peternewman/apt-repo-action@globs
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
           repo_supported_arch: |
             amd64
             arm64
@@ -145,3 +144,12 @@ jobs:
           private_key: ${{ secrets.APT_SIGNING_KEY }}
           key_passphrase: ${{ secrets.APT_PASSPHRASE }}
           debug: true
+      - name: Get branch name
+        id: branch-name
+        uses: tj-actions/branch-names@v2.2
+      - name: Copy To Branches Action
+        uses: planetoftheweb/copy-to-branches@v1
+        env:
+          key: ${{ steps.branch-name.outputs.base_ref_branch }}
+          branches: gh-pages
+          files: README.md
