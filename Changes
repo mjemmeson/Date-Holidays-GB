@@ -5,6 +5,9 @@ Revision history for {{$dist->name}}
  [Update]
  - 2022 Dates added [thanks Peter Newman]
 
+ [Maintenance]
+ - fix automatic dzil VERSION tagging
+
 0.019  2021-03-31 11:39:43 BST
 
  [Maintenance]
