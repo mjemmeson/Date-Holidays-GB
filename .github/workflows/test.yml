@@ -176,7 +176,7 @@ jobs:
         id: branch-name
         uses: tj-actions/branch-names@v2.2
       - name: Copy To Branches Action
-        uses: planetoftheweb/copy-to-branches@v1
+        uses: planetoftheweb/copy-to-branches@v1.1
         env:
           key: "${{ steps.branch-name.outputs.current_branch }}${{ steps.branch-name.outputs.base_ref_branch }}"
           branches: gh-pages
