@@ -128,7 +128,7 @@ jobs:
         with:
           name: debs
           path: "debs/*.deb"
-      - name: Release on Github Pages APT repo
+      - name: Release libdate-holidays-super-perl on Github Pages APT repo
         uses: peternewman/apt-repo-action@globs
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -141,6 +141,23 @@ jobs:
             s390x
           repo_supported_version: main
           file: debs/libdate-holidays-super-perl*.deb
+          file_target_version: main
+          private_key: ${{ secrets.APT_SIGNING_KEY }}
+          key_passphrase: ${{ secrets.APT_PASSPHRASE }}
+          debug: true
+      - name: Release libdate-holidays-gb-perl on Github Pages APT repo
+        uses: peternewman/apt-repo-action@globs
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          repo_supported_arch: |
+            amd64
+            arm64
+            armhf
+            i386
+            ppc64el
+            s390x
+          repo_supported_version: main
+          file: debs/libdate-holidays-gb-perl*.deb
           file_target_version: main
           private_key: ${{ secrets.APT_SIGNING_KEY }}
           key_passphrase: ${{ secrets.APT_PASSPHRASE }}
