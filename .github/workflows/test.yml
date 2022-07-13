@@ -179,7 +179,8 @@ jobs:
         uses: tj-actions/branch-names@v5.4
       - name: Copy To Branches Action
         # This doesn't update major version numbers, so we need to be specific
-        uses: planetoftheweb/copy-to-branches@v1.2
+        #uses: planetoftheweb/copy-to-branches@v1.2
+        uses: peternewman/copy-to-branches@reset-existing-branch
         env:
           key: "${{ steps.branch-name.outputs.current_branch }}${{ steps.branch-name.outputs.base_ref_branch }}"
           branches: gh-pages
