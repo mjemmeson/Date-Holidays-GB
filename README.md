@@ -138,8 +138,8 @@ update/alter the package if necessary.
 
 - [Date::Holidays](https://metacpan.org/pod/Date%3A%3AHolidays)
 - [Date::Holidays::UK](https://metacpan.org/pod/Date%3A%3AHolidays%3A%3AUK) - not currently updated
-- [Date::Holidays::UK::EnglandAndWales](https://metacpan.org/pod/Date%3A%3AHolidays%3A%3AUK%3A%3AEnglandAndWales) - only England and Wales
-- [Date::Holidays::EnglandWales](https://metacpan.org/pod/Date%3A%3AHolidays%3A%3AEnglandWales) - not currently updated
+- [Date::Holidays::UK::EnglandAndWales](https://metacpan.org/pod/Date%3A%3AHolidays%3A%3AUK%3A%3AEnglandAndWales) - only England and Wales, not currently updated
+- [Date::Holidays::EnglandWales](https://metacpan.org/pod/Date%3A%3AHolidays%3A%3AEnglandWales) - only England and Wales, uses internal rules to hopefully be timeless, but hence doesn't use official data source
 
 # SUPPORT
 
