@@ -76,7 +76,7 @@ jobs:
       - name: Do dselect update
         run: sudo dselect update
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Set up Perl
         uses: shogo82148/actions-setup-perl@v1
       - name: Build Date::Holidays::Super deb
@@ -125,7 +125,7 @@ jobs:
           ls *.deb
           dpkg --info libdate-holidays-super-perl*.deb
           dpkg --info libdate-holidays-gb-perl*.deb
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: debs
           path: "debs/*.deb"
@@ -169,15 +169,17 @@ jobs:
     needs: package
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
           ref: 'gh-pages'
       - name: Get branch name
         id: branch-name
-        uses: tj-actions/branch-names@v2.2
+        # This doesn't update major version numbers, so we need to be specific
+        uses: tj-actions/branch-names@v5.4
       - name: Copy To Branches Action
-        uses: planetoftheweb/copy-to-branches@v1.1
+        # This doesn't update major version numbers, so we need to be specific
+        uses: planetoftheweb/copy-to-branches@v1.2
         env:
           key: "${{ steps.branch-name.outputs.current_branch }}${{ steps.branch-name.outputs.base_ref_branch }}"
           branches: gh-pages
