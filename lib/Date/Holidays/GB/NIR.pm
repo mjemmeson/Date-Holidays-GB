@@ -1,6 +1,6 @@
 package Date::Holidays::GB::NIR;
 
-# VERSION
+our $VERSION = '0.021'; # VERSION
 
 use strict;
 use warnings;
