@@ -131,15 +131,15 @@ Valid codes for the regions that make up ISO-3166-1 "GB" are:
 
 The source for this package is generated via a script, included with the
 distribution (`share/generate_date_holidays_gb.pl`). This downloads the
-latest JSON files from [https://www.gov.uk/bank-holidays](https://www.gov.uk/bank-holidays), and could be used to
+latest JSON files from [http://www.gov.uk/](http://www.gov.uk/), and could be used to
 update/alter the package if necessary.
 
 # SEE ALSO
 
 - [Date::Holidays](https://metacpan.org/pod/Date%3A%3AHolidays)
 - [Date::Holidays::UK](https://metacpan.org/pod/Date%3A%3AHolidays%3A%3AUK) - not currently updated
-- [Date::Holidays::UK::EnglandAndWales](https://metacpan.org/pod/Date%3A%3AHolidays%3A%3AUK%3A%3AEnglandAndWales) - only England and Wales, not currently updated
-- [Date::Holidays::EnglandWales](https://metacpan.org/pod/Date%3A%3AHolidays%3A%3AEnglandWales) - only England and Wales, uses internal rules to hopefully be timeless, but hence doesn't use official data source
+- [Date::Holidays::UK::EnglandAndWales](https://metacpan.org/pod/Date%3A%3AHolidays%3A%3AUK%3A%3AEnglandAndWales) - only England and Wales
+- [Date::Holidays::EnglandWales](https://metacpan.org/pod/Date%3A%3AHolidays%3A%3AEnglandWales) - not currently updated
 
 # SUPPORT
 
