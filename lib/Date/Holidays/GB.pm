@@ -1,6 +1,6 @@
 package Date::Holidays::GB;
 
-our $VERSION = '0.021';
+our $VERSION = '0.022';
 
 # ABSTRACT: Determine British holidays - Current UK public and bank holiday dates up to 2023
 
@@ -196,7 +196,7 @@ sub _holiday {
     return join( ', ', @strings );
 }
 
-sub date_generated { '2022-11-11' }
+sub date_generated { '2023-01-04' }
 
 1;
 
