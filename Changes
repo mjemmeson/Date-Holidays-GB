@@ -2,6 +2,8 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.023  2023-04-25 10:45:47 BST
+
  [Maintenance]
  - fix automatic dzil VERSION tagging
  - more URLs to https [thanks Peter Newman]
