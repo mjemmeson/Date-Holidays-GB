@@ -1,5 +1,6 @@
 name: "Test"
 on:
+  workflow_dispatch:
   pull_request:
     branches-ignore:
       - gh-pages
@@ -19,15 +20,15 @@ jobs:
           - macos-latest
         perl:
           - "5.30"
-          - "5.28"
-          - "5.26"
-          - "5.24"
-          - "5.22"
-          - "5.20"
-          - "5.18"
-          - "5.16"
-          - "5.14"
-          - "5.12"
+          #- "5.28"
+          #- "5.26"
+          #- "5.24"
+          #- "5.22"
+          #- "5.20"
+          #- "5.18"
+          #- "5.16"
+          #- "5.14"
+          #- "5.12"
         exclude:
           # excludes the Windows ones that don't work
           - os: windows-latest
@@ -72,7 +73,7 @@ jobs:
       - name: Do dselect update
         run: sudo dselect update
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Set up Perl
         uses: shogo82148/actions-setup-perl@v1
       - name: Build Date::Holidays::Super deb
@@ -121,11 +122,11 @@ jobs:
           ls *.deb
           dpkg --info libdate-holidays-super-perl*.deb
           dpkg --info libdate-holidays-gb-perl*.deb
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: debs
           path: "debs/*.deb"
-      - name: Release on Github Pages APT repo
+      - name: Release libdate-holidays-super-perl on Github Pages APT repo
         uses: peternewman/apt-repo-action@globs
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -142,3 +143,41 @@ jobs:
           private_key: ${{ secrets.APT_SIGNING_KEY }}
           key_passphrase: ${{ secrets.APT_PASSPHRASE }}
           debug: true
+      - name: Release libdate-holidays-gb-perl on Github Pages APT repo
+        uses: peternewman/apt-repo-action@globs
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          repo_supported_arch: |
+            amd64
+            arm64
+            armhf
+            i386
+            ppc64el
+            s390x
+          repo_supported_version: main
+          file: debs/libdate-holidays-gb-perl*.deb
+          file_target_version: main
+          private_key: ${{ secrets.APT_SIGNING_KEY }}
+          key_passphrase: ${{ secrets.APT_PASSPHRASE }}
+          debug: true
+
+  update-readme:
+    # Only update readme if we packaged successfully
+    needs: package
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: 'gh-pages'
+      - name: Get branch name
+        id: branch-name
+        # This doesn't update major version numbers, so we need to be specific
+        uses: tj-actions/branch-names@v5.4
+      - name: Copy To Branches Action
+        # This doesn't update major version numbers, so we need to be specific
+        uses: planetoftheweb/copy-to-branches@v1.3
+        env:
+          key: "${{ steps.branch-name.outputs.current_branch }}${{ steps.branch-name.outputs.base_ref_branch }}"
+          branches: gh-pages
+          files: README.md
