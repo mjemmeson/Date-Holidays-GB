@@ -1,8 +1,8 @@
 package Date::Holidays::GB;
 
-our $VERSION = '0.017';
+our $VERSION = '0.023';
 
-# ABSTRACT: Determine British holidays - Current UK public and bank holiday dates up to 2021
+# ABSTRACT: Determine British holidays - Current UK public and bank holiday dates up to 2023
 
 use strict;
 use warnings;
@@ -22,8 +22,8 @@ our @EXPORT_OK = qw(
 );
 
 # See
-# http://en.wikipedia.org/wiki/ISO_3166-2
-# http://en.wikipedia.org/wiki/ISO_3166-2:GB
+# https://en.wikipedia.org/wiki/ISO_3166-2
+# https://en.wikipedia.org/wiki/ISO_3166-2:GB
 
 use constant REGION_NAMES => {
     EAW => 'England & Wales',
@@ -118,7 +118,7 @@ sub is_holiday {
         ( $y, $m, $d ) = $args{date} =~ m{^([0-9]{4})-([0-9]{2})-([0-9]{2})$};
     }
     else {
-        ( $y, $m, $d ) = @args{qw/ year month day /};
+        ( $y, $m, $d ) = @args{qw( year month day )};
     }
 
     die "Must specify either 'date' or 'year', 'month' and 'day'"
@@ -196,7 +196,7 @@ sub _holiday {
     return join( ', ', @strings );
 }
 
-sub date_generated { '2020-06-04' }
+sub date_generated { '2023-01-04' }
 
 1;
 
@@ -474,3 +474,120 @@ __DATA__
 2021-12-28	EAW	Boxing Day
 2021-12-28	NIR	Boxing Day
 2021-12-28	SCT	Boxing Day
+2022-01-03	EAW	New Year’s Day
+2022-01-03	NIR	New Year’s Day
+2022-01-03	SCT	New Year’s Day
+2022-01-04	SCT	2nd January
+2022-03-17	NIR	St Patrick’s Day
+2022-04-15	EAW	Good Friday
+2022-04-15	NIR	Good Friday
+2022-04-15	SCT	Good Friday
+2022-04-18	EAW	Easter Monday
+2022-04-18	NIR	Easter Monday
+2022-05-02	EAW	Early May bank holiday
+2022-05-02	NIR	Early May bank holiday
+2022-05-02	SCT	Early May bank holiday
+2022-06-02	EAW	Spring bank holiday
+2022-06-02	NIR	Spring bank holiday
+2022-06-02	SCT	Spring bank holiday
+2022-06-03	EAW	Platinum Jubilee bank holiday
+2022-06-03	NIR	Platinum Jubilee bank holiday
+2022-06-03	SCT	Platinum Jubilee bank holiday
+2022-07-12	NIR	Battle of the Boyne (Orangemen’s Day)
+2022-08-01	SCT	Summer bank holiday
+2022-08-29	EAW	Summer bank holiday
+2022-08-29	NIR	Summer bank holiday
+2022-09-19	EAW	Bank Holiday for the State Funeral of Queen Elizabeth II
+2022-09-19	NIR	Bank Holiday for the State Funeral of Queen Elizabeth II
+2022-09-19	SCT	Bank Holiday for the State Funeral of Queen Elizabeth II
+2022-11-30	SCT	St Andrew’s Day
+2022-12-26	EAW	Boxing Day
+2022-12-26	NIR	Boxing Day
+2022-12-26	SCT	Boxing Day
+2022-12-27	EAW	Christmas Day
+2022-12-27	NIR	Christmas Day
+2022-12-27	SCT	Christmas Day
+2023-01-02	EAW	New Year’s Day
+2023-01-02	NIR	New Year’s Day
+2023-01-02	SCT	New Year’s Day
+2023-01-03	SCT	2nd January
+2023-03-17	NIR	St Patrick’s Day
+2023-04-07	EAW	Good Friday
+2023-04-07	NIR	Good Friday
+2023-04-07	SCT	Good Friday
+2023-04-10	EAW	Easter Monday
+2023-04-10	NIR	Easter Monday
+2023-05-01	EAW	Early May bank holiday
+2023-05-01	NIR	Early May bank holiday
+2023-05-01	SCT	Early May bank holiday
+2023-05-08	EAW	Bank holiday for the coronation of King Charles III
+2023-05-08	NIR	Bank holiday for the coronation of King Charles III
+2023-05-08	SCT	Bank holiday for the coronation of King Charles III
+2023-05-29	EAW	Spring bank holiday
+2023-05-29	NIR	Spring bank holiday
+2023-05-29	SCT	Spring bank holiday
+2023-07-12	NIR	Battle of the Boyne (Orangemen’s Day)
+2023-08-07	SCT	Summer bank holiday
+2023-08-28	EAW	Summer bank holiday
+2023-08-28	NIR	Summer bank holiday
+2023-11-30	SCT	St Andrew’s Day
+2023-12-25	EAW	Christmas Day
+2023-12-25	NIR	Christmas Day
+2023-12-25	SCT	Christmas Day
+2023-12-26	EAW	Boxing Day
+2023-12-26	NIR	Boxing Day
+2023-12-26	SCT	Boxing Day
+2024-01-01	EAW	New Year’s Day
+2024-01-01	NIR	New Year’s Day
+2024-01-01	SCT	New Year’s Day
+2024-01-02	SCT	2nd January
+2024-03-18	NIR	St Patrick’s Day
+2024-03-29	EAW	Good Friday
+2024-03-29	NIR	Good Friday
+2024-03-29	SCT	Good Friday
+2024-04-01	EAW	Easter Monday
+2024-04-01	NIR	Easter Monday
+2024-05-06	EAW	Early May bank holiday
+2024-05-06	NIR	Early May bank holiday
+2024-05-06	SCT	Early May bank holiday
+2024-05-27	EAW	Spring bank holiday
+2024-05-27	NIR	Spring bank holiday
+2024-05-27	SCT	Spring bank holiday
+2024-07-12	NIR	Battle of the Boyne (Orangemen’s Day)
+2024-08-05	SCT	Summer bank holiday
+2024-08-26	EAW	Summer bank holiday
+2024-08-26	NIR	Summer bank holiday
+2024-12-02	SCT	St Andrew’s Day
+2024-12-25	EAW	Christmas Day
+2024-12-25	NIR	Christmas Day
+2024-12-25	SCT	Christmas Day
+2024-12-26	EAW	Boxing Day
+2024-12-26	NIR	Boxing Day
+2024-12-26	SCT	Boxing Day
+2025-01-01	EAW	New Year’s Day
+2025-01-01	NIR	New Year’s Day
+2025-01-01	SCT	New Year’s Day
+2025-01-02	SCT	2nd January
+2025-03-17	NIR	St Patrick’s Day
+2025-04-18	EAW	Good Friday
+2025-04-18	NIR	Good Friday
+2025-04-18	SCT	Good Friday
+2025-04-21	EAW	Easter Monday
+2025-04-21	NIR	Easter Monday
+2025-05-05	EAW	Early May bank holiday
+2025-05-05	NIR	Early May bank holiday
+2025-05-05	SCT	Early May bank holiday
+2025-05-26	EAW	Spring bank holiday
+2025-05-26	NIR	Spring bank holiday
+2025-05-26	SCT	Spring bank holiday
+2025-07-14	NIR	Battle of the Boyne (Orangemen’s Day)
+2025-08-04	SCT	Summer bank holiday
+2025-08-25	EAW	Summer bank holiday
+2025-08-25	NIR	Summer bank holiday
+2025-12-01	SCT	St Andrew’s Day
+2025-12-25	EAW	Christmas Day
+2025-12-25	NIR	Christmas Day
+2025-12-25	SCT	Christmas Day
+2025-12-26	EAW	Boxing Day
+2025-12-26	NIR	Boxing Day
+2025-12-26	SCT	Boxing Day

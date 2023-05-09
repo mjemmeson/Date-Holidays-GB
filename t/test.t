@@ -9,7 +9,7 @@ binmode $builder->output,         ":utf8";
 binmode $builder->failure_output, ":utf8";
 binmode $builder->todo_output,    ":utf8";
 
-use Date::Holidays::GB qw/ is_holiday holidays holidays_ymd /;
+use Date::Holidays::GB qw( is_holiday holidays holidays_ymd );
 
 open( my $fh, '<:encoding(utf-8)', 't/samples/2013-holidays' )
     or die "Can't open 2013-holidays: $!";
@@ -78,10 +78,10 @@ subtest is_holiday => sub {
 subtest holidays => sub {
 
     is_deeply holidays(2000), {}, "No data for year 2000 - outside range";
-    is_deeply holidays(2025), {}, "No data for year 2025 - outside range";
+    is_deeply holidays(2030), {}, "No data for year 2030 - outside range";
 
 #like exception { holidays(2000) }, qr/No holiday data for year 2000/, "dies ok outside date range";
-#like exception { holidays(2020) }, qr/No holiday data for year 2020/, "dies ok outside date range";
+#like exception { holidays(2030) }, qr/No holiday data for year 2030/, "dies ok outside date range";
 
     is_deeply holidays(2013),
         {

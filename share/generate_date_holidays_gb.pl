@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 
 # script to update Date::Holidays::GB with the latest bank holiday dates from
-# http://www.gov.uk/bank-holidays
+# https://www.gov.uk/bank-holidays
 
 use strict;
 use warnings;
@@ -10,11 +10,11 @@ use Cwd qw( realpath );
 use DateTime;
 use File::Spec::Functions qw( catfile splitpath updir );
 use JSON qw(decode_json);
-use List::Util qw( uniq );
-use LWP::Simple qw/ get /;
+use List::MoreUtils qw( uniq );
+use LWP::Simple qw( get );
 use Time::Local ();
 
-my $URL = 'http://www.gov.uk/bank-holidays.json';
+my $URL = 'https://www.gov.uk/bank-holidays.json';
 
 my %CODE = (
     'england-and-wales' => 'EAW',

@@ -28,7 +28,6 @@ jobs:
           - "5.16"
           - "5.14"
           - "5.12"
-          - "5.10"
         exclude:
           # excludes the Windows ones that don't work
           - os: windows-latest
@@ -43,8 +42,6 @@ jobs:
             perl: "5.14"
           - os: windows-latest
             perl: "5.12"
-          - os: windows-latest
-            perl: "5.10"
 
     steps:
       - name: Checkout
