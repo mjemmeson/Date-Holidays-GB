@@ -196,7 +196,7 @@ sub _holiday {
     return join( ', ', @strings );
 }
 
-sub date_generated { '2026-01-04' }
+sub date_generated { '2026-10-17' }
 
 1;
 
@@ -607,6 +607,7 @@ __DATA__
 2026-05-25	EAW	Spring bank holiday
 2026-05-25	NIR	Spring bank holiday
 2026-05-25	SCT	Spring bank holiday
+2026-06-15	SCT	World Cup bank holiday
 2026-07-13	NIR	Battle of the Boyne (Orangemen’s Day)
 2026-08-03	SCT	Summer bank holiday
 2026-08-31	EAW	Summer bank holiday
